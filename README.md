@@ -1,110 +1,88 @@
-# open-mur — Intelligence sulle università italiane
+# open-mur — L'università italiana, aperta e interrogabile
 
-Dati aperti sul sistema universitario italiano. Fonte primaria: MUR/USTAT via [dati-ustat.mur.gov.it](https://dati-ustat.mur.gov.it).
+[![CI](https://github.com/dataciviclab/open-mur/actions/workflows/check.yml/badge.svg)](https://github.com/dataciviclab/open-mur/actions/workflows/check.yml)
 
-## Dataset
+**2 milioni di iscritti, 92 atenei, 30 anni di dati. Tutto interrogabile via SQL.**
 
-### Principali
+open-mur raccoglie e rende pubblici i dati del sistema universitario italiano dalla fonte primaria [MUR/USTAT](https://dati-ustat.mur.gov.it). Iscritti, laureati, personale, contribuzione studentesca — puliti, arricchiti e pronti per l'analisi.
 
-| Dataset | Slug | Granularità | Copertura | Mart |
-|---------|------|-------------|-----------|------|
-| Contribuzione universitaria | `contribuzione-universitaria` | Ateneo × tipo gettito × anno | 2017–2024 | `mart_contribuzione_trend` |
-| Immatricolati | `immatricolati` | Classe laurea × sesso × anno | 1998–2025 | `mart_immatricolati_area` |
-| Iscritti | `iscritti` | Ateneo × sesso × anno | 2000–2025 | `mart_iscritti_concentrazione` |
-| Laureati | `laureati` | Ateneo × sesso × anno | 2001–2025 | `mart_laureati_efficienza` |
-| Laureati per voto | `laureati-voto` | Ateneo × voto × genere × anno | 2014–2024 | `mart_laureati_per_voto`, `mart_voto_per_ateneo` |
-| Personale nazionale | `personale` | Genere × qualifica × anno | 1997–2024 | `mart_personale_distribuzione` |
-| Personale per ateneo | `personale-ateneo` | Ateneo × grade × genere × anno | 2012–2024 | `mart_personale_per_ateneo`, `mart_personale_per_grade` |
-| Formazione post-laurea | `formazione-post-laurea` | Ateneo × livello × sesso × anno | 2001–2024 | `mart_post_laurea_area` |
+## Cosa contiene
 
-### Support
+| | |
+|---|---|
+| **Dataset** | 12 (9 principali + 3 support) |
+| **Periodo** | 1997 — 2025 (varia per dataset) |
+| **Atenei coperti** | 92 |
+| **Formato** | Parquet su GCS |
 
-| Dataset | Slug | Contenuto |
-|---------|------|-----------|
-| Anagrafica atenei | `anagrafica-atenei` | Codice, nome, tipo, città, provincia, regione, macro-area |
-| Crosswalk STEM | `crosswalk-stem` | Classi di laurea → ISCED-F 2013 con flag STEM |
-| Tasso abbandono | `tasso-abbandono` | Tasso di abbandono entro il 1° anno, serie storica 2011–2025 |
-| Offerta formativa | `offerta-formativa` | Elenco corsi di laurea per ateneo, classe, sede, lingua |
+### Per tema
 
-## Note sui dati
+| Tema | Esempi |
+|------|--------|
+| 📚 Iscrizioni | Trend iscritti per ateneo, distribuzione geografica |
+| 🎓 Laureati | Tasso di completamento, voto di laurea |
+| ⚖️ Genere | Gap STEM, distribuzione per disciplina |
+| 👩‍🏫 Personale | Qualifiche, evoluzione storica, bilancio di genere |
+| 💰 Finanza | Gettito contribuzione studentesca per tipo |
+| 📉 Efficienza | Tasso di abbandono, concentrazione geografica |
 
-- Tutti i CSV MUR usano **punto e virgola** (`;`) come delimitatore e **line ending Windows** (`\r\n`)
-- Le colonne anno accademico sono nel formato `AAAA/AAAA` (es. `2024/2025`) — il clean.sql estrae l'anno di inizio
-- `personale` è una serie storica nazionale (non per-ateneo)
-- `formazione-post-laurea` include dottorati e master I livello
+## Esempi di domande
 
-## Setup
+- **Il sistema universitario italiano cresce o decresce?** (Trend iscritti 2000–2025)
+- **Quali atenei sono più grandi?** E quali hanno il tasso di completamento più alto?
+- **Dove le donne sono sottorappresentate nelle discipline?** (Gap STEM per classe di laurea)
+- **Nord o Sud?** Come si distribuiscono gli studenti nelle macro-aree?
+- **Quanto costa l'università agli studenti?** (Gettito contribuzione per tipo)
+
+## Dashboard
+
+Una [dashboard Streamlit](dashboard/) visualizza i dati per tema:
+
+- **Panoramica** — KPI + trend iscritti + top 10 atenei + distribuzione geografica
+- **Atenei** — classifica per dimensione + scheda singolo ateneo
+- **Genere & STEM** — gap per disciplina + classi più femminili/maschili
+- **Geografia** — distribuzione macro-area + concentrazione
+- **Personale** — composizione per qualifica + evoluzione temporale
+- **Finanza** — gettito contribuzione + trend
+- **Query SQL** — interrogazione diretta dei dati
 
 ```bash
-# Clona il repo
+cd dashboard && pip install -r requirements.txt && streamlit run app.py
+```
+
+## Tre modi per accedere ai dati
+
+### 1. Via MCP (toolkit del Lab)
+
+```bash
+toolkit query mur_iscritti "SELECT ateneo_nome, SUM(totale) AS iscritti FROM clean_input GROUP BY ateneo_nome ORDER BY iscritti DESC LIMIT 10"
+```
+
+### 2. Via DuckDB locale
+
+```bash
+duckdb -c "SELECT * FROM read_parquet('out/data/mart/mur_iscritti/2025/mart_iscritti_concentrazione.parquet') WHERE anno = 2025 LIMIT 10"
+```
+
+### 3. Via parquet su GCS
+
+Scarica i file da `gs://dataciviclab-mart/open-mur/` e aprili con qualsiasi tool (pandas, Polars, Excel).
+
+## Setup locale
+
+```bash
 git clone https://github.com/dataciviclab/open-mur.git
 cd open-mur
-
-# Installa dipendenze di sviluppo
 pip install -e ".[dev]"
-
-# Verifica configurazioni
 make check
-
-# Esegui tutti i dataset
 make run
-
-# Esegui un singolo dataset
-toolkit run --config datasets/laureati/dataset.yml
 ```
 
-## Struttura
+## Partecipa
 
-```
-open-mur/
-├── datasets/                    Dataset principali (raw → clean → mart)
-│   ├── contribuzione-universitaria/
-│   ├── crosswalk-stem/
-│   ├── formazione-post-laurea/
-│   ├── immatricolati/
-│   ├── iscritti/
-│   ├── laureati/
-│   ├── laureati-voto/
-│   ├── personale/
-│   └── personale-ateneo/
-├── support/                     Dataset di supporto
-│   ├── anagrafica-atenei/
-│   ├── offerta-formativa/
-│   └── tasso-abbandono/
-├── analysis/                    Script di analisi SQL
-├── tests/                       Test suite
-├── out/                         Output pipeline (git-ignored)
-├── Makefile                     Target: check, run, clean
-├── pyproject.toml               Configurazione progetto
-├── CONTRIBUTING.md              Guida ai contributi
-└── LICENSE                      MIT
-```
-
-## Analisi
-
-Gli script in `analysis/` eseguono query SQL sui mart e producono CSV:
-
-```bash
-python analysis/run_analysis.py
-```
-
-Query disponibili:
-1. Trend iscrizioni
-2. Classifica atenei
-3. Gap genere per area
-4. Tasso completamento
-5. Docenti per qualifica
-6. Dottorati e master
-7. Gettito contribuzione
-8. Equilibrio geografico
-
-## Fonti non ancora nel Lab
-
-| Fonte | Contenuto | Potenziale |
-|-------|-----------|------------|
-| ANVUR Cruscotto | Indicatori per ateneo | Alto — ma Power BI, non CSV statico |
-| MUR Personale per ateneo | Docenti per ateneo e qualifica (2020–2024) | Alto |
-| MUR Bilancio atenei | Preventivo/consuntivo | Medio — formato XLSX |
+- 💬 [Discussions](https://github.com/dataciviclab/open-mur/discussions) — domande, suggerimenti, idee
+- 🐛 [Issue](https://github.com/dataciviclab/open-mur/issues) — bug, dataset mancanti, miglioramenti
+- 🔧 [CONTRIBUTING.md](CONTRIBUTING.md) — come contribuire
 
 ## License
 
