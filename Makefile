@@ -27,13 +27,6 @@ run:
 
 run-all: seeds run
 
-.PHONY: registry registry-write
-registry:
-	$(TOOLKIT) registry build --prefix open-mur
-
-registry-write:
-	$(TOOLKIT) registry build --prefix open-mur --write
-
 clean:
 	rm -rf out/data/_runs out/data/probe out/data/raw out/data/clean out/data/mart out/data/cross .tmp/
 
