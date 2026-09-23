@@ -1,0 +1,54 @@
+root: "../../out"
+schema_version: 1
+
+dataset:
+  name: "mur_offerta_formativa"
+  source_id: "mur_ustat"
+  tags: [istruzione, mur, offerta, formativa, corsi, laurea, support]
+  category: support
+  description: "Offerta formativa: elenco corsi di laurea per ateneo, classe, corso, sede, lingua."
+  years: [2025]
+
+raw:
+  sources:
+    - name: "offerta_formativa"
+      type: "ckan"
+      args:
+        portal_url: "https://dati-ustat.mur.gov.it/api/3/action"
+        resource_id: "c0e63906-7190-4568-892b-0cf399f56071"
+        filename: "offerta_formativa.csv"
+      primary: true
+
+clean:
+  sql: "sql/clean.sql"
+  required_columns: [anno, ateneo_cod, ateneo, classe, nome_classe, corso, sede_comune, sede_provincia, lingua]
+  read:
+    source: auto
+    mode: latest
+    delim: ","
+    encoding: utf-8
+    header: true
+  validate:
+    not_null: [anno, ateneo, classe]
+    min_rows: 1000
+
+mart:
+  tables:
+    - name: "mart_offerta_per_ateneo"
+      sql: "sql/mart_per_ateneo.sql"
+    - name: "mart_offerta_per_area"
+      sql: "sql/mart_per_area.sql"
+  required_tables: ["mart_offerta_per_ateneo", "mart_offerta_per_area"]
+  validate:
+    table_rules:
+      mart_offerta_per_ateneo:
+        primary_key: [anno, ateneo_cod, classe, lingua]
+        not_null: [anno, ateneo_cod, classe]
+        min_rows: 1000
+      mart_offerta_per_area:
+        primary_key: [anno]
+        not_null: [anno]
+        min_rows: 1
+
+validation:
+  fail_on_error: true

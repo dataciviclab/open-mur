@@ -1,0 +1,68 @@
+root: "../../out"
+schema_version: 1
+
+dataset:
+  name: "mur_formazione_post_laurea"
+  source_id: "mur_ustat"
+  tags: [istruzione, mur, dottorati, master, specializzazione, post-laurea, universita]
+  category: istruzione
+  years: [2025]
+  time_coverage:
+    mode: full_series
+    start_year: 2001
+    end_year: 2024
+
+support:
+  - name: "mur_anagrafica_atenei"
+    config: "../../support/anagrafica-atenei/dataset.yml"
+    years: [2025]
+
+raw:
+  output_policy: overwrite
+  sources:
+    - name: "dottorati_iscritti_ateneo"
+      type: "ckan"
+      args:
+        portal_url: "https://dati-ustat.mur.gov.it/api/3/action"
+        resource_id: "03e1981b-6581-42f6-a99b-9c977131f67e"
+        filename: "dottorati_iscritti_ateneo.csv"
+      inject_column:
+        livello: "dottorato"
+      primary: true
+    - name: "master_1_iscritti_ateneo"
+      type: "ckan"
+      args:
+        portal_url: "https://dati-ustat.mur.gov.it/api/3/action"
+        resource_id: "77ac551f-4d11-41c3-87ef-86fb46d899c1"
+        filename: "master_1_iscritti_ateneo.csv"
+      inject_column:
+        livello: "master_I"
+
+clean:
+  sql: "sql/clean.sql"
+  required_columns: [anno_accademico, ateneo_cod, ateneo_nome, livello, sesso, iscritti, macro_area, regione]
+  read:
+    source: auto
+    mode: all
+    delim: ","
+    encoding: utf-8
+    header: true
+  validate:
+    not_null: [anno_accademico]
+    min_rows: 500
+
+mart:
+  tables:
+    - name: "mart_post_laurea_area"
+      sql: "sql/mart.sql"
+  required_tables: ["mart_post_laurea_area"]
+  validate:
+    table_rules:
+      mart_post_laurea_area:
+        required_columns: [anno_accademico, macro_area, livello, totale, share_livello, share_area]
+        primary_key: [anno_accademico, macro_area, livello]
+        not_null: [anno_accademico, macro_area, livello, totale]
+        min_rows: 20
+
+validation:
+  fail_on_error: true

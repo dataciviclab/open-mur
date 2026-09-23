@@ -1,0 +1,63 @@
+root: "../../out"
+schema_version: 1
+
+dataset:
+  name: "mur_laureati_voto"
+  source_id: "mur_ustat"
+  tags: [istruzione, mur, laureati, voto, qualita]
+  category: istruzione
+  years: [2025]
+  time_coverage:
+    mode: full_series
+    start_year: 2014
+    end_year: 2024
+
+support:
+  - name: "mur_anagrafica_atenei"
+    config: "../../support/anagrafica-atenei/dataset.yml"
+    years: [2025]
+
+raw:
+  output_policy: overwrite
+  sources:
+    - name: "laureati_voto"
+      type: "ckan"
+      args:
+        portal_url: "https://dati-ustat.mur.gov.it/api/3/action"
+        resource_id: "e7046069-8cc9-444b-bbc8-4844dbedc835"
+        filename: "laureati_voto.csv"
+      primary: true
+
+clean:
+  sql: "sql/clean.sql"
+  required_columns: [anno, cod_ateneo, nome_ateneo, regione, area_geo, macro_area, classe_voto, genere, laureati]
+  read:
+    source: auto
+    mode: latest
+    delim: ","
+    encoding: utf-8
+    header: true
+  validate:
+    not_null: [anno]
+    min_rows: 1000
+
+mart:
+  tables:
+    - name: "mart_laureati_per_voto"
+      sql: "sql/mart_per_voto.sql"
+    - name: "mart_voto_per_ateneo"
+      sql: "sql/mart_per_ateneo.sql"
+  required_tables: ["mart_laureati_per_voto", "mart_voto_per_ateneo"]
+  validate:
+    table_rules:
+      mart_laureati_per_voto:
+        primary_key: [anno, classe_voto, genere]
+        not_null: [anno, classe_voto, genere, totale]
+        min_rows: 30
+      mart_voto_per_ateneo:
+        primary_key: [anno, cod_ateneo, classe_voto]
+        not_null: [anno, cod_ateneo, classe_voto, totale]
+        min_rows: 100
+
+validation:
+  fail_on_error: true

@@ -1,0 +1,53 @@
+root: "../../out"
+schema_version: 1
+
+dataset:
+  name: "mur_personale"
+  source_id: "mur_ustat"
+  tags: [istruzione, mur, personale, docenti, ricercatori, universita]
+  category: istruzione
+  years: [2025]
+  time_coverage:
+    mode: full_series
+    start_year: 1997
+    end_year: 2024
+
+raw:
+  output_policy: overwrite
+  sources:
+    - name: "personale_genere_qualifica"
+      type: "ckan"
+      args:
+        portal_url: "https://dati-ustat.mur.gov.it/api/3/action"
+        resource_id: "85c1ab95-c8db-484b-8898-56478c521721"
+        filename: "personale_genere_qualifica.csv"
+      primary: true
+
+clean:
+  sql: "sql/clean.sql"
+  required_columns: [anno, genere, codice_qualifica, desc_qualifica, numero]
+  read:
+    source: auto
+    mode: latest
+    delim: ","
+    encoding: utf-8
+    header: true
+  validate:
+    not_null: [anno]
+    min_rows: 100
+
+mart:
+  tables:
+    - name: "mart_personale_distribuzione"
+      sql: "sql/mart.sql"
+  required_tables: ["mart_personale_distribuzione"]
+  validate:
+    table_rules:
+      mart_personale_distribuzione:
+        required_columns: [anno, codice_qualifica, desc_qualifica, totale, pct_donne, share_totale]
+        primary_key: [anno, codice_qualifica]
+        not_null: [anno, codice_qualifica, totale]
+        min_rows: 50
+
+validation:
+  fail_on_error: true

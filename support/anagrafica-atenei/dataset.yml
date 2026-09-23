@@ -1,0 +1,49 @@
+root: "../../out"
+schema_version: 1
+
+dataset:
+  name: "mur_anagrafica_atenei"
+  source_id: "mur_ustat"
+  tags: [istruzione, mur, anagrafica, atenei, geolocalizzazione, support]
+  category: support
+  description: "Anagrafica completa degli atenei italiani: codice, nome, tipo, città, provincia, regione, macro-area."
+  years: [2025]
+
+raw:
+  sources:
+    - name: "atenei"
+      type: "ckan"
+      args:
+        portal_url: "https://dati-ustat.mur.gov.it/api/3/action"
+        resource_id: "820aefe6-0662-4656-84ec-d8859a2a3b7e"
+        filename: "atenei.csv"
+      primary: true
+
+clean:
+  sql: "sql/clean.sql"
+  required_columns: [cod_ateneo, nome_esteso, nome_operativo, status, descrizione, tipo, citta, provincia, regione, macro_area]
+  read:
+    source: auto
+    mode: latest
+    delim: ","
+    encoding: utf-8
+    header: true
+  validate:
+    not_null: [cod_ateneo, nome_esteso]
+    min_rows: 50
+
+mart:
+  tables:
+    - name: "mart_anagrafica_atenei"
+      sql: "sql/mart.sql"
+  required_tables: ["mart_anagrafica_atenei"]
+  validate:
+    table_rules:
+      mart_anagrafica_atenei:
+        required_columns: [cod_ateneo, nome_esteso, nome_operativo, status, descrizione, tipo, citta, provincia, regione, macro_area]
+        primary_key: [cod_ateneo]
+        not_null: [cod_ateneo, nome_esteso]
+        min_rows: 50
+
+validation:
+  fail_on_error: true

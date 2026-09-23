@@ -1,0 +1,48 @@
+root: "../../out"
+schema_version: 1
+
+dataset:
+  name: "mur_crosswalk_stem"
+  source_id: "mur_ustat"
+  tags: [istruzione, mur, crosswalk, stem, isced, support]
+  category: support
+  description: "Crosswalk classi di laurea → ISCED-F 2013 con flag STEM. Support puro."
+  years: [2025]
+
+raw:
+  sources:
+    - name: "cod_foet2013"
+      type: "ckan"
+      args:
+        portal_url: "https://dati-ustat.mur.gov.it/api/3/action"
+        resource_id: "3f52db2f-24ce-4605-8e51-5618cc4ff4e3"
+        filename: "cod_foet2013.csv"
+      primary: true
+
+clean:
+  sql: "sql/clean.sql"
+  required_columns: [classe, tipo_corso, desc_classe, isced_1dgt, desc_isced_1dgt, isced_2dgt, desc_isced_2dgt, isced_3dgt, desc_isced_3dgt, area_stem]
+  read:
+    source: auto
+    mode: latest
+    delim: ","
+    encoding: utf-8
+    header: true
+  validate:
+    not_null: [classe, area_stem]
+    min_rows: 200
+
+mart:
+  tables:
+    - name: "mart_crosswalk_stem"
+      sql: "sql/mart.sql"
+  required_tables: ["mart_crosswalk_stem"]
+  validate:
+    table_rules:
+      mart_crosswalk_stem:
+        primary_key: [classe]
+        not_null: [classe, area_stem]
+        min_rows: 200
+
+validation:
+  fail_on_error: true
