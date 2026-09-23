@@ -80,7 +80,7 @@ make run
 
 ## Partecipa
 
-- 💬 [Discussions](https://github.com/dataciviclab/open-mur/discussions) — domande, suggerimenti, idee
+- 💬 [Discussions](https://github.com/orgs/dataciviclab/discussions) — domande, suggerimenti, idee
 - 🐛 [Issue](https://github.com/dataciviclab/open-mur/issues) — bug, dataset mancanti, miglioramenti
 - 🔧 [CONTRIBUTING.md](CONTRIBUTING.md) — come contribuire
 
