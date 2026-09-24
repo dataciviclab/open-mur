@@ -15,6 +15,8 @@ from lab_connectors.registry import load_registry
 
 __all__ = ["fmt_eur", "fmt_num", "fmt_pct", "load_mart", "run_sql", "YEARS"]
 
+PREFIX = "open_mur/"
+
 _registry = load_registry(Path(__file__).parent.parent / "registry" / "registry.json")
 
 # Anni disponibili: union di tutti i period nel registry
@@ -34,7 +36,7 @@ YEARS = list(range(min(_all_start), max(_all_end) + 1)) if _all_start and _all_e
 @st.cache_data(ttl=3600, show_spinner=False)
 def load_mart(slug: str, table: str, year: int) -> "pd.DataFrame":
     """Carica un mart table da GCS o locale (cached 1h)."""
-    return load_mart_table(slug, table, year)
+    return load_mart_table(slug, table, year, prefix=PREFIX)
 
 
 @st.cache_data(ttl=3600, show_spinner=False)
