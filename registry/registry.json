@@ -333,7 +333,7 @@
       ],
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-clean/open-mur/mur_formazione_post_laurea/2025/mur_formazione_post_laurea_2025_clean.parquet",
+        "path": "gs://dataciviclab-clean/open_mur/mur_formazione_post_laurea/2025/mur_formazione_post_laurea_2025_clean.parquet",
         "multi_file": false
       },
       "stage": "incubating",
@@ -1180,7 +1180,7 @@
       "detail": "anno 2025 — mart: si",
       "action": "",
       "run": {
-        "run_id": "20260922T211823Z_4765530f",
+        "run_id": "20260924T151256Z_9a4e46f8",
         "year": 2025,
         "status": "SUCCESS",
         "quality_score": {
@@ -1198,9 +1198,9 @@
           "clean": 14596,
           "mart": 3276
         },
-        "started_at": "2026-09-22T21:18:23.385188+00:00",
-        "finished_at": "2026-09-22T21:18:27.679594+00:00",
-        "duration_seconds": 4.294
+        "started_at": "2026-09-24T15:12:56.211945+00:00",
+        "finished_at": "2026-09-24T15:21:08.326951+00:00",
+        "duration_seconds": 492.115
       }
     },
     {
@@ -1397,7 +1397,7 @@
       "detail": "anno 2025 — mart: si",
       "action": "",
       "run": {
-        "run_id": "20260924T131459Z_2c8a7671",
+        "run_id": "20260924T150850Z_0e4d7709",
         "year": 2025,
         "status": "SUCCESS",
         "quality_score": {
@@ -1415,9 +1415,9 @@
           "clean": 6375,
           "mart": 6364
         },
-        "started_at": "2026-09-24T13:14:59.598773+00:00",
-        "finished_at": "2026-09-24T13:19:04.388506+00:00",
-        "duration_seconds": 244.79
+        "started_at": "2026-09-24T15:08:50.346209+00:00",
+        "finished_at": "2026-09-24T15:12:56.208306+00:00",
+        "duration_seconds": 245.862
       }
     },
     {
