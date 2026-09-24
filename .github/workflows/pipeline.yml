@@ -6,12 +6,10 @@ on:
     paths:
       - "datasets/**"
       - "support/**"
-  schedule:
-    - cron: "0 6 1 * *"
   workflow_dispatch:
     inputs:
-      years:
-        description: "Anni (es. 2025 o all)"
+      dataset:
+        description: "Path config (es. datasets/laureati/dataset.yml o support/anagrafica-atenei/dataset.yml)"
         required: false
         default: ""
 
@@ -21,7 +19,7 @@ jobs:
     uses: dataciviclab/.github/.github/workflows/pipeline-reusable.yml@main
     with:
       repo-slug: "open_mur"
-      run-command: "make run-all"
+      run-command: ${{ inputs.dataset == '' && 'make run-all' || format('toolkit run --config {0}', inputs.dataset) }}
       extra-env: "BLOCKED_SOURCE_PROXY=${{ vars.BLOCKED_SOURCE_PROXY }}"
     permissions:
       contents: write
