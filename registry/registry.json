@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "repo": "open-mur",
-  "source_repo": "open-mur",
-  "updated_at": "2026-09-23",
+  "source_repo": "dataciviclab/open-mur",
+  "updated_at": "2026-09-24",
   "datasets": [
     {
       "slug": "mur_anagrafica_atenei",
@@ -89,7 +89,7 @@
       ],
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-clean/open-mur/mur_anagrafica_atenei/2025/mur_anagrafica_atenei_2025_clean.parquet",
+        "path": "gs://dataciviclab-clean/open_mur/mur_anagrafica_atenei/2025/mur_anagrafica_atenei_2025_clean.parquet",
         "multi_file": false
       },
       "stage": "incubating",
@@ -471,7 +471,7 @@
       ],
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-clean/open-mur/mur_iscritti/2025/mur_iscritti_2025_clean.parquet",
+        "path": "gs://dataciviclab-clean/open_mur/mur_iscritti/2025/mur_iscritti_2025_clean.parquet",
         "multi_file": false
       },
       "stage": "incubating",
@@ -965,7 +965,7 @@
       "table": "mart_anagrafica_atenei",
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-mur/mur_anagrafica_atenei/2025/mart_anagrafica_atenei.parquet",
+        "path": "gs://dataciviclab-mart/open_mur/mur_anagrafica_atenei/2025/mart_anagrafica_atenei.parquet",
         "multi_file": false
       }
     },
@@ -975,7 +975,7 @@
       "table": "mart_contribuzione_trend",
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-mur/mur_contribuzione_universitaria/2024/mart_contribuzione_trend.parquet",
+        "path": "gs://dataciviclab-mart/open_mur/mur_contribuzione_universitaria/2024/mart_contribuzione_trend.parquet",
         "multi_file": false
       }
     },
@@ -985,7 +985,7 @@
       "table": "mart_crosswalk_stem",
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-mur/mur_crosswalk_stem/2025/mart_crosswalk_stem.parquet",
+        "path": "gs://dataciviclab-mart/open_mur/mur_crosswalk_stem/2025/mart_crosswalk_stem.parquet",
         "multi_file": false
       }
     },
@@ -995,7 +995,7 @@
       "table": "mart_post_laurea_area",
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-mur/mur_formazione_post_laurea/2025/mart_post_laurea_area.parquet",
+        "path": "gs://dataciviclab-mart/open_mur/mur_formazione_post_laurea/2025/mart_post_laurea_area.parquet",
         "multi_file": false
       }
     },
@@ -1005,7 +1005,7 @@
       "table": "mart_immatricolati_area",
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-mur/mur_immatricolati/2025/mart_immatricolati_area.parquet",
+        "path": "gs://dataciviclab-mart/open_mur/mur_immatricolati/2025/mart_immatricolati_area.parquet",
         "multi_file": false
       }
     },
@@ -1015,7 +1015,7 @@
       "table": "mart_iscritti_concentrazione",
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-mur/mur_iscritti/2025/mart_iscritti_concentrazione.parquet",
+        "path": "gs://dataciviclab-mart/open_mur/mur_iscritti/2025/mart_iscritti_concentrazione.parquet",
         "multi_file": false
       }
     },
@@ -1025,7 +1025,7 @@
       "table": "mart_laureati_efficienza",
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-mur/mur_laureati/2025/mart_laureati_efficienza.parquet",
+        "path": "gs://dataciviclab-mart/open_mur/mur_laureati/2025/mart_laureati_efficienza.parquet",
         "multi_file": false
       }
     },
@@ -1035,7 +1035,7 @@
       "table": "mart_laureati_per_voto",
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-mur/mur_laureati_voto/2025/mart_laureati_per_voto.parquet",
+        "path": "gs://dataciviclab-mart/open_mur/mur_laureati_voto/2025/mart_laureati_per_voto.parquet",
         "multi_file": false
       }
     },
@@ -1045,7 +1045,7 @@
       "table": "mart_voto_per_ateneo",
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-mur/mur_laureati_voto/2025/mart_voto_per_ateneo.parquet",
+        "path": "gs://dataciviclab-mart/open_mur/mur_laureati_voto/2025/mart_voto_per_ateneo.parquet",
         "multi_file": false
       }
     },
@@ -1055,7 +1055,7 @@
       "table": "mart_offerta_per_area",
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-mur/mur_offerta_formativa/2025/mart_offerta_per_area.parquet",
+        "path": "gs://dataciviclab-mart/open_mur/mur_offerta_formativa/2025/mart_offerta_per_area.parquet",
         "multi_file": false
       }
     },
@@ -1065,7 +1065,7 @@
       "table": "mart_offerta_per_ateneo",
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-mur/mur_offerta_formativa/2025/mart_offerta_per_ateneo.parquet",
+        "path": "gs://dataciviclab-mart/open_mur/mur_offerta_formativa/2025/mart_offerta_per_ateneo.parquet",
         "multi_file": false
       }
     },
@@ -1075,7 +1075,7 @@
       "table": "mart_personale_distribuzione",
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-mur/mur_personale/2025/mart_personale_distribuzione.parquet",
+        "path": "gs://dataciviclab-mart/open_mur/mur_personale/2025/mart_personale_distribuzione.parquet",
         "multi_file": false
       }
     },
@@ -1085,7 +1085,7 @@
       "table": "mart_personale_per_ateneo",
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-mur/mur_personale_ateneo/2025/mart_personale_per_ateneo.parquet",
+        "path": "gs://dataciviclab-mart/open_mur/mur_personale_ateneo/2025/mart_personale_per_ateneo.parquet",
         "multi_file": false
       }
     },
@@ -1095,7 +1095,7 @@
       "table": "mart_personale_per_grade",
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-mur/mur_personale_ateneo/2025/mart_personale_per_grade.parquet",
+        "path": "gs://dataciviclab-mart/open_mur/mur_personale_ateneo/2025/mart_personale_per_grade.parquet",
         "multi_file": false
       }
     },
@@ -1105,7 +1105,7 @@
       "table": "mart_tasso_abbandono",
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-mart/open-mur/mur_tasso_abbandono/2025/mart_tasso_abbandono.parquet",
+        "path": "gs://dataciviclab-mart/open_mur/mur_tasso_abbandono/2025/mart_tasso_abbandono.parquet",
         "multi_file": false
       }
     }
@@ -1242,7 +1242,7 @@
       "detail": "anno 2025 — mart: si",
       "action": "",
       "run": {
-        "run_id": "20260922T211833Z_11f9417e",
+        "run_id": "20260924T123128Z_11274164",
         "year": 2025,
         "status": "SUCCESS",
         "quality_score": {
@@ -1260,9 +1260,9 @@
           "clean": 19775,
           "mart": 33282
         },
-        "started_at": "2026-09-22T21:18:33.310647+00:00",
-        "finished_at": "2026-09-22T21:18:36.327609+00:00",
-        "duration_seconds": 3.017
+        "started_at": "2026-09-24T12:31:28.923697+00:00",
+        "finished_at": "2026-09-24T12:35:34.008174+00:00",
+        "duration_seconds": 245.084
       }
     },
     {
@@ -1397,7 +1397,7 @@
       "detail": "anno 2025 — mart: si",
       "action": "",
       "run": {
-        "run_id": "20260922T184235Z_c7dce6dc",
+        "run_id": "20260924T122724Z_fdacc12d",
         "year": 2025,
         "status": "SUCCESS",
         "quality_score": {
@@ -1415,9 +1415,9 @@
           "clean": 6375,
           "mart": 6364
         },
-        "started_at": "2026-09-22T18:42:35.021754+00:00",
-        "finished_at": "2026-09-22T18:42:37.367925+00:00",
-        "duration_seconds": 2.346
+        "started_at": "2026-09-24T12:27:24.285662+00:00",
+        "finished_at": "2026-09-24T12:31:28.921881+00:00",
+        "duration_seconds": 244.636
       }
     },
     {
