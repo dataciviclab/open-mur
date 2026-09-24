@@ -949,7 +949,7 @@
       ],
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-clean/open-mur/mur_tasso_abbandono/2025/mur_tasso_abbandono_2025_clean.parquet",
+        "path": "gs://dataciviclab-clean/open_mur/mur_tasso_abbandono/2025/mur_tasso_abbandono_2025_clean.parquet",
         "multi_file": false
       },
       "stage": "incubating",
@@ -1459,7 +1459,7 @@
       "detail": "anno 2025 — mart: si",
       "action": "",
       "run": {
-        "run_id": "20260922T184245Z_1e295ffa",
+        "run_id": "20260924T160759Z_459e013f",
         "year": 2025,
         "status": "SUCCESS",
         "quality_score": {
@@ -1477,9 +1477,9 @@
           "clean": 1359,
           "mart": 1533
         },
-        "started_at": "2026-09-22T18:42:45.645692+00:00",
-        "finished_at": "2026-09-22T18:42:47.757975+00:00",
-        "duration_seconds": 2.112
+        "started_at": "2026-09-24T16:07:59.748185+00:00",
+        "finished_at": "2026-09-24T16:12:05.561926+00:00",
+        "duration_seconds": 245.814
       }
     }
   ],
