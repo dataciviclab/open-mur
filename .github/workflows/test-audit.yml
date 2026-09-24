@@ -16,4 +16,5 @@ jobs:
   audit-markers:
     uses: dataciviclab/.github/.github/workflows/test-audit-reusable.yml@main
     with:
-      test-dirs: "tests"
+      test-dirs: "tests dashboard/tests"
+      extra-packages: "-e .[dev]"
