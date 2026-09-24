@@ -392,7 +392,7 @@
       ],
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-clean/open-mur/mur_immatricolati/2025/mur_immatricolati_2025_clean.parquet",
+        "path": "gs://dataciviclab-clean/open_mur/mur_immatricolati/2025/mur_immatricolati_2025_clean.parquet",
         "multi_file": false
       },
       "stage": "incubating",
@@ -1211,7 +1211,7 @@
       "detail": "anno 2025 — mart: si",
       "action": "",
       "run": {
-        "run_id": "20260922T211936Z_35fbfb3b",
+        "run_id": "20260924T123958Z_9eebc9f9",
         "year": 2025,
         "status": "SUCCESS",
         "quality_score": {
@@ -1227,11 +1227,11 @@
         "output_bytes": {
           "raw": 198129,
           "clean": 13355,
-          "mart": 23536
+          "mart": 23531
         },
-        "started_at": "2026-09-22T21:19:36.110225+00:00",
-        "finished_at": "2026-09-22T21:19:36.412905+00:00",
-        "duration_seconds": 0.303
+        "started_at": "2026-09-24T12:39:58.103173+00:00",
+        "finished_at": "2026-09-24T12:44:04.359905+00:00",
+        "duration_seconds": 246.257
       }
     },
     {
