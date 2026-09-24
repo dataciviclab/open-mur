@@ -551,7 +551,7 @@
       ],
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-clean/open-mur/mur_laureati/2025/mur_laureati_2025_clean.parquet",
+        "path": "gs://dataciviclab-clean/open_mur/mur_laureati/2025/mur_laureati_2025_clean.parquet",
         "multi_file": false
       },
       "stage": "incubating",
@@ -1273,7 +1273,7 @@
       "detail": "anno 2025 — mart: si",
       "action": "",
       "run": {
-        "run_id": "20260922T211839Z_e72fa212",
+        "run_id": "20260924T154602Z_36b864ec",
         "year": 2025,
         "status": "SUCCESS",
         "quality_score": {
@@ -1289,11 +1289,11 @@
         "output_bytes": {
           "raw": 153887,
           "clean": 18199,
-          "mart": 30959
+          "mart": 30942
         },
-        "started_at": "2026-09-22T21:18:39.816772+00:00",
-        "finished_at": "2026-09-22T21:18:42.784423+00:00",
-        "duration_seconds": 2.968
+        "started_at": "2026-09-24T15:46:02.577922+00:00",
+        "finished_at": "2026-09-24T15:50:07.783743+00:00",
+        "duration_seconds": 245.206
       }
     },
     {
@@ -1397,7 +1397,7 @@
       "detail": "anno 2025 — mart: si",
       "action": "",
       "run": {
-        "run_id": "20260924T152703Z_753e90e7",
+        "run_id": "20260924T154157Z_58bdef39",
         "year": 2025,
         "status": "SUCCESS",
         "quality_score": {
@@ -1415,9 +1415,9 @@
           "clean": 6375,
           "mart": 6364
         },
-        "started_at": "2026-09-24T15:27:03.651800+00:00",
-        "finished_at": "2026-09-24T15:31:09.554283+00:00",
-        "duration_seconds": 245.902
+        "started_at": "2026-09-24T15:41:57.912827+00:00",
+        "finished_at": "2026-09-24T15:46:02.576125+00:00",
+        "duration_seconds": 244.663
       }
     },
     {
