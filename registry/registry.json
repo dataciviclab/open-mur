@@ -246,7 +246,7 @@
       ],
       "location": {
         "type": "gcs",
-        "path": "gs://dataciviclab-clean/open-mur/mur_crosswalk_stem/2025/mur_crosswalk_stem_2025_clean.parquet",
+        "path": "gs://dataciviclab-clean/open_mur/mur_crosswalk_stem/2025/mur_crosswalk_stem_2025_clean.parquet",
         "multi_file": false
       },
       "stage": "incubating",
@@ -1149,7 +1149,7 @@
       "detail": "anno 2025 — mart: si",
       "action": "",
       "run": {
-        "run_id": "20260922T211819Z_e93d280d",
+        "run_id": "20260924T141500Z_79d22505",
         "year": 2025,
         "status": "SUCCESS",
         "quality_score": {
@@ -1167,9 +1167,9 @@
           "clean": 10161,
           "mart": 10644
         },
-        "started_at": "2026-09-22T21:18:19.352617+00:00",
-        "finished_at": "2026-09-22T21:18:21.909406+00:00",
-        "duration_seconds": 2.557
+        "started_at": "2026-09-24T14:15:00.295872+00:00",
+        "finished_at": "2026-09-24T14:19:06.762406+00:00",
+        "duration_seconds": 246.467
       }
     },
     {
