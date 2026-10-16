@@ -32,6 +32,10 @@ dev = [
 pipeline = [
     "dataciviclab-toolkit @ git+https://github.com/dataciviclab/toolkit.git",
 ]
+# Catalog engine per-repo (probe, inventory, source report).
+observatory = [
+    "dataciviclab-source-observatory @ git+https://github.com/dataciviclab/source-observatory.git@main",
+]
 dashboard = [
     "streamlit>=1.61",
     "plotly>=5.18",
@@ -56,3 +60,11 @@ markers = [
 
 [tool.toolkit.extends]
 source_id = "mur_ustat"
+
+[tool.observatory]
+source_id = "mur_ustat"
+protocol = "ckan"
+base_url = "https://dati-ustat.mur.gov.it/api/3/action/package_list?limit=1"
+observation_mode = "catalog-watch"
+verdict = "go"
+note = "CKAN diretto dati-ustat.mur.gov.it (il repo consuma resource_id specifici di questo portale, non dell'aggregato dati.gov.it)."
