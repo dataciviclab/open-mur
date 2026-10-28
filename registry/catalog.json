@@ -1,6 +1,6 @@
 {
   "source_id": "mur_ustat",
-  "generated_at": "2026-10-28T16:07:05+00:00",
+  "generated_at": "2026-10-28T19:08:30+00:00",
   "report_version": 1,
   "timing": {},
   "identity": {
@@ -18,15 +18,15 @@
     "http_code": "200",
     "note": null,
     "ssl_fallback": false,
-    "streak": 4
+    "streak": 5
   },
   "inventory": {
     "total_items": 70,
     "method": null,
-    "captured_at": "2026-10-28T16:02:53+00:00",
+    "captured_at": "2026-10-28T18:58:02+00:00",
     "baseline_value": null,
     "baseline_date": null,
-    "freshness_hours": 0.1,
+    "freshness_hours": 0.2,
     "delta": null,
     "delta_pct": 0.0,
     "formats": {
@@ -39,7 +39,7 @@
     }
   },
   "source_check": {
-    "last_run": "2026-10-28T16:07:05Z",
+    "last_run": "2026-10-28T19:08:30Z",
     "total_scored": 17,
     "reachable": 17,
     "csv_count": 17,
@@ -243,8 +243,7 @@
     "label": "PARTIALLY_SCOPED",
     "score": "partial",
     "triggers": [
-      "source_check_partial",
-      "referenced_item_missing"
+      "source_check_partial"
     ],
     "next_action": "complete source-check"
   },
@@ -252,59 +251,8 @@
   "catalog_schema_version": 1,
   "referenced_items": {
     "checked": 13,
-    "matched": 3,
-    "missing": [
-      {
-        "slug": "mur_contribuzione_universitaria",
-        "kind": "ckan_dataset",
-        "id": "{year}-contribuzione-e-interventi-atenei"
-      },
-      {
-        "slug": "mur_crosswalk_stem",
-        "kind": "ckan_resource",
-        "id": "3f52db2f-24ce-4605-8e51-5618cc4ff4e3"
-      },
-      {
-        "slug": "mur_formazione_post_laurea",
-        "kind": "ckan_resource",
-        "id": "03e1981b-6581-42f6-a99b-9c977131f67e"
-      },
-      {
-        "slug": "mur_formazione_post_laurea",
-        "kind": "ckan_resource",
-        "id": "77ac551f-4d11-41c3-87ef-86fb46d899c1"
-      },
-      {
-        "slug": "mur_immatricolati",
-        "kind": "ckan_resource",
-        "id": "9bb0cf6d-1d4e-47f3-8ae9-0c665617b158"
-      },
-      {
-        "slug": "mur_iscritti",
-        "kind": "ckan_resource",
-        "id": "32d26e28-a0b5-45f3-9152-6072164f3e63"
-      },
-      {
-        "slug": "mur_laureati",
-        "kind": "ckan_resource",
-        "id": "88acd482-9d75-44d1-ab16-aa04524f5d94"
-      },
-      {
-        "slug": "mur_laureati_voto",
-        "kind": "ckan_resource",
-        "id": "e7046069-8cc9-444b-bbc8-4844dbedc835"
-      },
-      {
-        "slug": "mur_offerta_formativa",
-        "kind": "ckan_resource",
-        "id": "c0e63906-7190-4568-892b-0cf399f56071"
-      },
-      {
-        "slug": "mur_personale_ateneo",
-        "kind": "ckan_resource",
-        "id": "6027508d-2efd-4f86-bbbf-44cb914b29c2"
-      }
-    ],
+    "matched": 13,
+    "missing": [],
     "unknown": []
   }
 }
