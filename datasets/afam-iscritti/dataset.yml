@@ -1,0 +1,70 @@
+root: "../../out"
+schema_version: 1
+
+dataset:
+  name: "mur_afam_iscritti"
+  source_id: "mur_ustat"
+  tags: [istruzione, afam, iscritti, accademie, conservatori]
+  category: istruzione
+  years: [2025]
+  time_coverage:
+    mode: full_series
+    start_year: 2010
+    end_year: 2025
+
+support:
+  - name: "mur_afam_istituti"
+    config: "../../support/anagrafica-afam/dataset.yml"
+    years: [2025]
+
+raw:
+  output_policy: overwrite
+  sources:
+    - name: "iscritti_afam_2010_2014"
+      type: "ckan"
+      args:
+        portal_url: "https://dati-ustat.mur.gov.it/api/3/action"
+        resource_id: "65aae3a4-320f-463a-ba36-5e637edcf870"
+        filename: "afam_iscritti_2010_2014.csv"
+      primary: true
+    - name: "iscritti_afam_2015_2019"
+      type: "ckan"
+      args:
+        portal_url: "https://dati-ustat.mur.gov.it/api/3/action"
+        resource_id: "c5ee81f6-4115-4b08-97aa-2cbeed983f60"
+        filename: "afam_iscritti_2015_2019.csv"
+    - name: "iscritti_afam_2020_2025"
+      type: "ckan"
+      args:
+        portal_url: "https://dati-ustat.mur.gov.it/api/3/action"
+        resource_id: "72c39733-af10-4b7e-8d5c-878499fab765"
+        filename: "afam_iscritti_2020_2025.csv"
+
+clean:
+  sql: "sql/clean.sql"
+  required_columns: [anno_accademico, cod_istituto, nome_istituto, area_istituto, area_corso, tipo_corso, classe, corso, genere, iscritti, regione]
+  read:
+    source: auto
+    mode: all
+    delim: ","
+    encoding: "utf-8"
+    header: true
+  validate:
+    not_null: [anno_accademico, cod_istituto]
+    min_rows: 100000
+
+mart:
+  tables:
+    - name: "mart_afam_iscritti_area"
+      sql: "sql/mart.sql"
+  required_tables: ["mart_afam_iscritti_area"]
+  validate:
+    table_rules:
+      mart_afam_iscritti_area:
+        required_columns: [anno_accademico, area_corso, totale, donne, uomini, pct_donne, share_anno]
+        primary_key: [anno_accademico, area_corso]
+        not_null: [anno_accademico, area_corso, totale]
+        min_rows: 20
+
+validation:
+  fail_on_error: true

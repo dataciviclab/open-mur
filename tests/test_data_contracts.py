@@ -176,3 +176,125 @@ def test_lookup_province_golden():
         assert pairs.get(provincia) == atteso, (
             f"{provincia}: atteso {atteso}, trovato {pairs.get(provincia)}"
         )
+
+
+# --- Contratti AFAM -----------------------------------------------------------
+
+@pytest.mark.contract
+def test_afam_iscritti_serie_continua():
+    """Le tre serie AFAM coprono 2010-2025 senza buchi."""
+    path = _latest_parquet(MART_BASE, "mur_afam_iscritti", "*.parquet")
+    if path is None:
+        pytest.skip("mart mur_afam_iscritti assente — esegui prima la pipeline")
+
+    con = duckdb.connect()
+    try:
+        years = [
+            r[0]
+            for r in con.execute(
+                "SELECT DISTINCT anno_accademico FROM read_parquet(?) ORDER BY 1", [str(path)]
+            ).fetchall()
+        ]
+    finally:
+        con.close()
+
+    assert years == list(range(2010, 2026)), f"serie AFAM non continua: {years}"
+
+
+@pytest.mark.parametrize(
+    "slug",
+    ["mur_afam_iscritti", "mur_afam_diplomati", "mur_afam_personale"],
+)
+@pytest.mark.contract
+def test_afam_regione_sempre_valorizzata(slug: str):
+    """La regione dell'istituto non deve mai essere vuota (né 'N/A')."""
+    path = _latest_parquet(CLEAN_BASE, slug, "*_clean.parquet")
+    if path is None:
+        pytest.skip(f"clean {slug} assente — esegui prima la pipeline")
+
+    con = duckdb.connect()
+    try:
+        vuote = con.execute(
+            "SELECT count(*) FROM read_parquet(?) "
+            "WHERE regione IS NULL OR regione = 'N/A' OR trim(regione) = ''",
+            [str(path)],
+        ).fetchone()[0]
+    finally:
+        con.close()
+
+    assert vuote == 0, f"{slug}: {vuote} righe senza regione"
+
+
+@pytest.mark.contract
+def test_afam_anagrafica_nomi_completi():
+    """L'anagrafica AFAM riempie i nomi vuoti con il tipo istituto."""
+    path = _latest_parquet(MART_BASE, "mur_afam_istituti", "*.parquet")
+    if path is None:
+        pytest.skip("mart mur_afam_istituti assente — esegui prima la pipeline")
+
+    con = duckdb.connect()
+    try:
+        vuoti = con.execute(
+            "SELECT count(*) FROM read_parquet(?) "
+            "WHERE nome_istituto IS NULL OR trim(nome_istituto) = ''",
+            [str(path)],
+        ).fetchone()[0]
+    finally:
+        con.close()
+
+    assert vuoti == 0, f"{vuoti} istituti AFAM senza nome"
+
+
+# Codici presenti negli iscritti ma assenti dall'anagrafica 2025 (noti e stabili):
+# 59050/59070 sedi decentrate, 59090 nuovo codice post-statizzazione,
+# 72391 sezione storica. Se il set cambia, va rivalutata la copertura.
+AFAM_CODICI_SENZA_ANAGRAFICA = {"59050", "59070", "59090", "72391"}
+
+
+@pytest.mark.policy
+def test_afam_codici_senza_anagrafica_noti():
+    """I codici iscritti assenti dall'anagrafica sono un set noto."""
+    iscritti = _latest_parquet(CLEAN_BASE, "mur_afam_iscritti", "*_clean.parquet")
+    anagrafica = _latest_parquet(MART_BASE, "mur_afam_istituti", "*.parquet")
+    if iscritti is None or anagrafica is None:
+        pytest.skip("clean iscritti o mart anagrafica AFAM assenti")
+
+    con = duckdb.connect()
+    try:
+        mancanti = {
+            r[0]
+            for r in con.execute(
+                "SELECT DISTINCT cod_istituto FROM read_parquet(?) "
+                "EXCEPT SELECT cod_istituto FROM read_parquet(?)",
+                [str(iscritti), str(anagrafica)],
+            ).fetchall()
+        }
+    finally:
+        con.close()
+
+    assert mancanti == AFAM_CODICI_SENZA_ANAGRAFICA, (
+        f"codici senza anagrafica cambiati: {sorted(mancanti)}"
+    )
+
+
+@pytest.mark.policy
+def test_afam_copertura_nome():
+    """Il nome istituto è un buco della fonte: copertura >= 88% delle righe."""
+    path = _latest_parquet(CLEAN_BASE, "mur_afam_iscritti", "*_clean.parquet")
+    if path is None:
+        pytest.skip("clean mur_afam_iscritti assente — esegui prima la pipeline")
+
+    con = duckdb.connect()
+    try:
+        senza, totale = con.execute(
+            "SELECT count(*) FILTER (WHERE nome_istituto IS NULL), count(*) "
+            "FROM read_parquet(?)",
+            [str(path)],
+        ).fetchone()
+    finally:
+        con.close()
+
+    assert totale > 0
+    assert senza / totale <= 0.12, (
+        f"copertura nome AFAM scesa: {senza}/{totale} righe senza nome"
+    )

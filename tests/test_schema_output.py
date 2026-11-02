@@ -54,6 +54,19 @@ MART_CONTRACTS = [
     ("mur_anagrafica_atenei", "mart_anagrafica_atenei", [
         "cod_ateneo", "nome_esteso", "provincia", "sigla_provincia", "cod_provincia_istat", "regione",
     ]),
+    ("mur_afam_iscritti", "mart_afam_iscritti_area", [
+        "anno_accademico", "area_corso", "totale", "donne", "uomini", "pct_donne", "share_anno",
+    ]),
+    ("mur_afam_diplomati", "mart_afam_diplomati_area", [
+        "anno", "area_corso", "totale", "donne", "uomini", "pct_donne", "share_anno",
+    ]),
+    ("mur_afam_personale", "mart_afam_personale", [
+        "anno_accademico", "tipo_personale", "genere", "totale",
+    ]),
+    ("mur_afam_istituti", "mart_afam_istituti", [
+        "cod_istituto", "nome_istituto", "tipo_istituto", "area_istituto", "comune_sede",
+        "cod_reg_istat", "regione", "cod_prov_istat", "provincia",
+    ]),
 ]
 
 
