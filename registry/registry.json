@@ -797,6 +797,117 @@
       ]
     },
     {
+      "slug": "mur_esoneri",
+      "name": "Mur Esoneri",
+      "description": "",
+      "source": "",
+      "source_id": "mur_ustat",
+      "period": {
+        "start": 2015,
+        "end": 2024
+      },
+      "tags": [
+        "istruzione",
+        "mur",
+        "esoneri",
+        "diritto-allo-studio",
+        "contribuzione",
+        "universita"
+      ],
+      "category": "istruzione",
+      "columns": [
+        {
+          "name": "anno_accademico",
+          "type": "INTEGER",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "cod_ateneo",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "nome_ateneo",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "tipo_esonero",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "codice_esonero",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "descrizione_esonero",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "laurea",
+          "type": "INTEGER",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "dottorato",
+          "type": "INTEGER",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "specializzazione",
+          "type": "INTEGER",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "master",
+          "type": "INTEGER",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "totale",
+          "type": "INTEGER",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "macro_area",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "regione",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "region_code"
+        }
+      ],
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-clean/open_mur/mur_esoneri/*/mur_esoneri_*_clean.parquet",
+        "multi_file": true
+      },
+      "stage": "incubating",
+      "mart_refs": [
+        "mur_esoneri__mart_esoneri_per_ateneo",
+        "mur_esoneri__mart_esoneri_per_causa"
+      ]
+    },
+    {
       "slug": "mur_formazione_post_laurea",
       "name": "Mur Formazione Post Laurea",
       "description": "",
@@ -940,6 +1051,117 @@
       "stage": "incubating",
       "mart_refs": [
         "mur_immatricolati__mart_immatricolati_area"
+      ]
+    },
+    {
+      "slug": "mur_interventi",
+      "name": "Mur Interventi",
+      "description": "",
+      "source": "",
+      "source_id": "mur_ustat",
+      "period": {
+        "start": 2015,
+        "end": 2024
+      },
+      "tags": [
+        "istruzione",
+        "mur",
+        "interventi",
+        "borse-di-studio",
+        "diritto-allo-studio",
+        "universita"
+      ],
+      "category": "istruzione",
+      "columns": [
+        {
+          "name": "anno_accademico",
+          "type": "INTEGER",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "cod_ateneo",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "nome_ateneo",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "codice_intervento",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "descrizione_intervento",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "laurea",
+          "type": "INTEGER",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "laurea_extra_ue",
+          "type": "INTEGER",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "dottorato",
+          "type": "INTEGER",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "specializzazione",
+          "type": "INTEGER",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "master",
+          "type": "INTEGER",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "totale",
+          "type": "INTEGER",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "macro_area",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "regione",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "region_code"
+        }
+      ],
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-clean/open_mur/mur_interventi/*/mur_interventi_*_clean.parquet",
+        "multi_file": true
+      },
+      "stage": "incubating",
+      "mart_refs": [
+        "mur_interventi__mart_interventi_per_ateneo",
+        "mur_interventi__mart_interventi_per_tipo"
       ]
     },
     {
@@ -1572,6 +1794,26 @@
       }
     },
     {
+      "slug": "mur_esoneri__mart_esoneri_per_ateneo",
+      "dataset": "mur_esoneri",
+      "table": "mart_esoneri_per_ateneo",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/open_mur/mur_esoneri/*/mart_esoneri_per_ateneo.parquet",
+        "multi_file": true
+      }
+    },
+    {
+      "slug": "mur_esoneri__mart_esoneri_per_causa",
+      "dataset": "mur_esoneri",
+      "table": "mart_esoneri_per_causa",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/open_mur/mur_esoneri/*/mart_esoneri_per_causa.parquet",
+        "multi_file": true
+      }
+    },
+    {
       "slug": "mur_formazione_post_laurea__mart_post_laurea_area",
       "dataset": "mur_formazione_post_laurea",
       "table": "mart_post_laurea_area",
@@ -1589,6 +1831,26 @@
         "type": "gcs",
         "path": "gs://dataciviclab-mart/open_mur/mur_immatricolati/2025/mart_immatricolati_area.parquet",
         "multi_file": false
+      }
+    },
+    {
+      "slug": "mur_interventi__mart_interventi_per_ateneo",
+      "dataset": "mur_interventi",
+      "table": "mart_interventi_per_ateneo",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/open_mur/mur_interventi/*/mart_interventi_per_ateneo.parquet",
+        "multi_file": true
+      }
+    },
+    {
+      "slug": "mur_interventi__mart_interventi_per_tipo",
+      "dataset": "mur_interventi",
+      "table": "mart_interventi_per_tipo",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/open_mur/mur_interventi/*/mart_interventi_per_tipo.parquet",
+        "multi_file": true
       }
     },
     {
@@ -1848,6 +2110,37 @@
       }
     },
     {
+      "id": "mur_esoneri",
+      "source_id": "mur_ustat",
+      "status": "ok",
+      "label": "mur_esoneri",
+      "detail": "anni 2016-2025 — mart: si",
+      "action": "",
+      "run": {
+        "run_id": "20261102T193753Z_9c487299",
+        "year": 2025,
+        "status": "SUCCESS",
+        "quality_score": {
+          "raw": 100,
+          "clean": 100,
+          "mart": 100
+        },
+        "output_rows": {
+          "raw": 1066,
+          "clean": 1435,
+          "mart": 217
+        },
+        "output_bytes": {
+          "raw": 220532,
+          "clean": 13704,
+          "mart": 6363
+        },
+        "started_at": "2026-11-02T19:37:53.420783+00:00",
+        "finished_at": "2026-11-02T19:39:01.266000+00:00",
+        "duration_seconds": 67.845
+      }
+    },
+    {
       "id": "mur_formazione_post_laurea",
       "source_id": "mur_ustat",
       "status": "ok",
@@ -1907,6 +2200,37 @@
         "started_at": "2026-11-02T18:18:25.037700+00:00",
         "finished_at": "2026-11-02T18:18:57.369824+00:00",
         "duration_seconds": 32.332
+      }
+    },
+    {
+      "id": "mur_interventi",
+      "source_id": "mur_ustat",
+      "status": "ok",
+      "label": "mur_interventi",
+      "detail": "anni 2016-2025 — mart: si",
+      "action": "",
+      "run": {
+        "run_id": "20261102T194457Z_02b5d71b",
+        "year": 2025,
+        "status": "SUCCESS",
+        "quality_score": {
+          "raw": 100,
+          "clean": 100,
+          "mart": 100
+        },
+        "output_rows": {
+          "raw": 2982,
+          "clean": 2982,
+          "mart": 130
+        },
+        "output_bytes": {
+          "raw": 549996,
+          "clean": 20051,
+          "mart": 5438
+        },
+        "started_at": "2026-11-02T19:44:57.688529+00:00",
+        "finished_at": "2026-11-02T19:45:33.385150+00:00",
+        "duration_seconds": 35.697
       }
     },
     {
@@ -2103,7 +2427,7 @@
       "detail": "anno 2025 — mart: si",
       "action": "",
       "run": {
-        "run_id": "20261102T182558Z_4eb81647",
+        "run_id": "20261102T192701Z_fcf15ae3",
         "year": 2025,
         "status": "SUCCESS",
         "quality_score": {
@@ -2121,9 +2445,9 @@
           "clean": 7137,
           "mart": 6924
         },
-        "started_at": "2026-11-02T18:25:58.462732+00:00",
-        "finished_at": "2026-11-02T18:26:30.216520+00:00",
-        "duration_seconds": 31.754
+        "started_at": "2026-11-02T19:27:01.608501+00:00",
+        "finished_at": "2026-11-02T19:27:35.022875+00:00",
+        "duration_seconds": 33.414
       }
     },
     {
@@ -2284,8 +2608,20 @@
             "semantic_type": "region_code"
           },
           {
+            "slug": "mur_esoneri",
+            "name": "Mur Esoneri",
+            "column": "regione",
+            "semantic_type": "region_code"
+          },
+          {
             "slug": "mur_formazione_post_laurea",
             "name": "Mur Formazione Post Laurea",
+            "column": "regione",
+            "semantic_type": "region_code"
+          },
+          {
+            "slug": "mur_interventi",
+            "name": "Mur Interventi",
             "column": "regione",
             "semantic_type": "region_code"
           },
@@ -2315,7 +2651,7 @@
           }
         ],
         "types": {
-          "region_code": 10
+          "region_code": 12
         }
       },
       "Tempo": {
