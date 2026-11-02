@@ -1,6 +1,6 @@
 {
   "source_id": "mur_ustat",
-  "generated_at": "2026-10-28T19:08:30+00:00",
+  "generated_at": "2026-11-02T13:37:47+00:00",
   "report_version": 1,
   "timing": {},
   "identity": {
@@ -11,19 +11,19 @@
     "observation_mode": "catalog-watch",
     "verdict": "go",
     "note": "CKAN diretto dati-ustat.mur.gov.it (il repo consuma resource_id specifici di questo portale, non dell'aggregato dati.gov.it).",
-    "last_probed": "2026-10-28"
+    "last_probed": "2026-11-02"
   },
   "health": {
     "radar_status": "GREEN",
     "http_code": "200",
     "note": null,
     "ssl_fallback": false,
-    "streak": 5
+    "streak": 6
   },
   "inventory": {
     "total_items": 70,
     "method": null,
-    "captured_at": "2026-10-28T18:58:02+00:00",
+    "captured_at": "2026-11-02T13:27:17+00:00",
     "baseline_value": null,
     "baseline_date": null,
     "freshness_hours": 0.2,
@@ -39,7 +39,7 @@
     }
   },
   "source_check": {
-    "last_run": "2026-10-28T19:08:30Z",
+    "last_run": "2026-11-02T13:37:47Z",
     "total_scored": 17,
     "reachable": 17,
     "csv_count": 17,
