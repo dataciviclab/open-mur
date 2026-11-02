@@ -298,3 +298,25 @@ def test_afam_copertura_nome():
     assert senza / totale <= 0.12, (
         f"copertura nome AFAM scesa: {senza}/{totale} righe senza nome"
     )
+
+
+@pytest.mark.policy
+def test_interventi_2020_non_troncato():
+    """Il 2020 è il caso in cui il DataStore MUR restituiva 1250 righe su 2530.
+
+    Se `prefer_datastore: false` viene rimosso, il clean torna incompleto e
+    questo test deve fallire.
+    """
+    path = CLEAN_BASE / "mur_interventi" / "2020" / "mur_interventi_2020_clean.parquet"
+    if not path.exists():
+        pytest.skip("clean mur_interventi 2020 assente — esegui prima la pipeline")
+
+    con = duckdb.connect()
+    try:
+        righe = con.execute(
+            "SELECT count(*) FROM read_parquet(?)", [str(path)]
+        ).fetchone()[0]
+    finally:
+        con.close()
+
+    assert righe > 2000, f"clean 2020 troncato: {righe} righe (attese >2000)"

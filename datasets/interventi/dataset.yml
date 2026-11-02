@@ -1,0 +1,72 @@
+root: "../../out"
+schema_version: 1
+
+dataset:
+  name: "mur_interventi"
+  source_id: "mur_ustat"
+  tags: [istruzione, mur, interventi, borse-di-studio, diritto-allo-studio, universita]
+  category: istruzione
+  # Partizione = anno finale dell'a.a. (es. 2025 → a.a. 2024/25);
+  # time_coverage = anni di inizio a.a. (2015-2024).
+  years: [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025]
+  time_coverage:
+    mode: full_series
+    start_year: 2015
+    end_year: 2024
+
+support:
+  - name: "mur_anagrafica_atenei"
+    config: "../../support/anagrafica-atenei/dataset.yml"
+    years: [2025]
+
+raw:
+  output_policy: overwrite
+  sources:
+    - name: "interventi_atenei"
+      type: "ckan"
+      client:
+        timeout: 15
+        retries: 1
+      args:
+        portal_url: "https://dati-ustat.mur.gov.it/api/3/action"
+        dataset_id: "{year}-contribuzione-e-interventi-atenei"
+        resource_name: "{year} Numero interventi atenei"
+        filename: "interventi_{year}.csv"
+        prefer_datastore: false
+      primary: true
+
+clean:
+  sql: "sql/clean.sql"
+  required_columns: [anno_accademico, cod_ateneo, nome_ateneo, codice_intervento, descrizione_intervento, laurea, laurea_extra_ue, dottorato, specializzazione, master, totale, macro_area, regione]
+  read:
+    source: auto
+    mode: "latest"
+    delim: ";"
+    encoding: "cp1252"
+    header: true
+  validate:
+    not_null: [anno_accademico, cod_ateneo]
+    min_rows: 2000
+
+mart:
+  tables:
+    - name: "mart_interventi_per_ateneo"
+      sql: "sql/mart_per_ateneo.sql"
+    - name: "mart_interventi_per_tipo"
+      sql: "sql/mart_per_tipo.sql"
+  required_tables: ["mart_interventi_per_ateneo", "mart_interventi_per_tipo"]
+  validate:
+    table_rules:
+      mart_interventi_per_ateneo:
+        required_columns: [anno_accademico, cod_ateneo, nome_ateneo, macro_area, regione, totale]
+        primary_key: [anno_accademico, cod_ateneo]
+        not_null: [anno_accademico, cod_ateneo, totale]
+        min_rows: 80
+      mart_interventi_per_tipo:
+        required_columns: [anno_accademico, descrizione_intervento, totale]
+        primary_key: [anno_accademico, descrizione_intervento]
+        not_null: [anno_accademico, descrizione_intervento, totale]
+        min_rows: 5
+
+validation:
+  fail_on_error: true

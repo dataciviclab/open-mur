@@ -1,0 +1,87 @@
+root: "../../out"
+schema_version: 1
+
+dataset:
+  name: "mur_esoneri"
+  source_id: "mur_ustat"
+  tags: [istruzione, mur, esoneri, diritto-allo-studio, contribuzione, universita]
+  category: istruzione
+  # Partizione = anno finale dell'a.a. (es. 2025 → a.a. 2024/25);
+  # time_coverage = anni di inizio a.a. (2015-2024).
+  years: [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025]
+  time_coverage:
+    mode: full_series
+    start_year: 2015
+    end_year: 2024
+
+support:
+  - name: "mur_anagrafica_atenei"
+    config: "../../support/anagrafica-atenei/dataset.yml"
+    years: [2025]
+
+raw:
+  output_policy: overwrite
+  sources:
+    - name: "esonero_totale"
+      type: "ckan"
+      client:
+        timeout: 15
+        retries: 1
+      args:
+        portal_url: "https://dati-ustat.mur.gov.it/api/3/action"
+        dataset_id: "{year}-contribuzione-e-interventi-atenei"
+        resource_name: "{year} Esonero totale atenei"
+        filename: "esonero_totale_{year}.csv"
+        prefer_datastore: false
+      inject_column:
+        tipo_esonero: "totale"
+      primary: true
+    - name: "esonero_parziale"
+      type: "ckan"
+      client:
+        timeout: 15
+        retries: 1
+      args:
+        portal_url: "https://dati-ustat.mur.gov.it/api/3/action"
+        dataset_id: "{year}-contribuzione-e-interventi-atenei"
+        resource_name: "{year} Esonero parziale atenei"
+        filename: "esonero_parziale_{year}.csv"
+        prefer_datastore: false
+      inject_column:
+        tipo_esonero: "parziale"
+
+clean:
+  sql: "sql/clean.sql"
+  required_columns: [anno_accademico, cod_ateneo, nome_ateneo, tipo_esonero, codice_esonero, descrizione_esonero, laurea, dottorato, specializzazione, master, totale, macro_area, regione]
+  read:
+    source: auto
+    mode: "all"
+    delim: ";"
+    encoding: "cp1252"
+    header: true
+  validate:
+    not_null: [anno_accademico, cod_ateneo, tipo_esonero]
+    min_rows: 500
+
+mart:
+  tables:
+    - name: "mart_esoneri_per_ateneo"
+      sql: "sql/mart_per_ateneo.sql"
+    - name: "mart_esoneri_per_causa"
+      sql: "sql/mart_per_causa.sql"
+  required_tables: ["mart_esoneri_per_ateneo", "mart_esoneri_per_causa"]
+  validate:
+    table_rules:
+      mart_esoneri_per_ateneo:
+        required_columns: [anno_accademico, cod_ateneo, nome_ateneo, macro_area, regione, tipo_esonero, totale]
+        primary_key: [anno_accademico, cod_ateneo, tipo_esonero]
+        not_null: [anno_accademico, cod_ateneo, tipo_esonero, totale]
+        min_rows: 80
+      mart_esoneri_per_causa:
+        required_columns: [anno_accademico, tipo_esonero, descrizione_esonero, totale]
+        primary_key: [anno_accademico, tipo_esonero, descrizione_esonero]
+        not_null: [anno_accademico, tipo_esonero, descrizione_esonero, totale]
+        min_rows: 5
+
+validation:
+  fail_on_error: true
