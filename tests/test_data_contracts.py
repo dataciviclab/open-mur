@@ -176,3 +176,70 @@ def test_lookup_province_golden():
         assert pairs.get(provincia) == atteso, (
             f"{provincia}: atteso {atteso}, trovato {pairs.get(provincia)}"
         )
+
+
+# --- Contratti AFAM -----------------------------------------------------------
+
+@pytest.mark.contract
+def test_afam_iscritti_serie_continua():
+    """Le tre serie AFAM coprono 2010-2025 senza buchi."""
+    path = _latest_parquet(MART_BASE, "mur_afam_iscritti", "*.parquet")
+    if path is None:
+        pytest.skip("mart mur_afam_iscritti assente — esegui prima la pipeline")
+
+    con = duckdb.connect()
+    try:
+        years = [
+            r[0]
+            for r in con.execute(
+                "SELECT DISTINCT anno_accademico FROM read_parquet(?) ORDER BY 1", [str(path)]
+            ).fetchall()
+        ]
+    finally:
+        con.close()
+
+    assert years == list(range(2010, 2026)), f"serie AFAM non continua: {years}"
+
+
+@pytest.mark.parametrize(
+    "slug",
+    ["mur_afam_iscritti", "mur_afam_diplomati", "mur_afam_personale"],
+)
+@pytest.mark.contract
+def test_afam_regione_sempre_valorizzata(slug: str):
+    """La regione dell'istituto non deve mai essere vuota (né 'N/A')."""
+    path = _latest_parquet(CLEAN_BASE, slug, "*_clean.parquet")
+    if path is None:
+        pytest.skip(f"clean {slug} assente — esegui prima la pipeline")
+
+    con = duckdb.connect()
+    try:
+        vuote = con.execute(
+            "SELECT count(*) FROM read_parquet(?) "
+            "WHERE regione IS NULL OR regione = 'N/A' OR trim(regione) = ''",
+            [str(path)],
+        ).fetchone()[0]
+    finally:
+        con.close()
+
+    assert vuote == 0, f"{slug}: {vuote} righe senza regione"
+
+
+@pytest.mark.contract
+def test_afam_anagrafica_nomi_completi():
+    """L'anagrafica AFAM riempie i nomi vuoti con il tipo istituto."""
+    path = _latest_parquet(MART_BASE, "mur_afam_istituti", "*.parquet")
+    if path is None:
+        pytest.skip("mart mur_afam_istituti assente — esegui prima la pipeline")
+
+    con = duckdb.connect()
+    try:
+        vuoti = con.execute(
+            "SELECT count(*) FROM read_parquet(?) "
+            "WHERE nome_istituto IS NULL OR trim(nome_istituto) = ''",
+            [str(path)],
+        ).fetchone()[0]
+    finally:
+        con.close()
+
+    assert vuoti == 0, f"{vuoti} istituti AFAM senza nome"

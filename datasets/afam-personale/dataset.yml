@@ -1,0 +1,68 @@
+root: "../../out"
+schema_version: 1
+
+dataset:
+  name: "mur_afam_personale"
+  source_id: "mur_ustat"
+  tags: [istruzione, afam, personale, docenti, ata, accademie, conservatori]
+  category: istruzione
+  years: [2025]
+  time_coverage:
+    mode: full_series
+    start_year: 2010
+    end_year: 2025
+
+support:
+  - name: "mur_afam_istituti"
+    config: "../../support/anagrafica-afam/dataset.yml"
+    years: [2025]
+
+raw:
+  output_policy: overwrite
+  sources:
+    - name: "personale_docente_afam"
+      type: "ckan"
+      args:
+        portal_url: "https://dati-ustat.mur.gov.it/api/3/action"
+        resource_id: "41bcdee1-fd51-4bc4-aca8-3a937b9db6da"
+        filename: "afam_personale_docente.csv"
+      inject_column:
+        tipo_personale: "docente"
+      primary: true
+    - name: "personale_ata_afam"
+      type: "ckan"
+      args:
+        portal_url: "https://dati-ustat.mur.gov.it/api/3/action"
+        resource_id: "f973ec78-bc5f-4bbc-ae27-8b40f50a6c9d"
+        filename: "afam_personale_ata.csv"
+      inject_column:
+        tipo_personale: "ATA"
+
+clean:
+  sql: "sql/clean.sql"
+  required_columns: [anno_accademico, cod_istituto, nome_istituto, tipo_personale, qualifica, genere, numero, regione]
+  read:
+    source: auto
+    mode: all
+    delim: ","
+    encoding: "utf-8"
+    header: true
+  validate:
+    not_null: [anno_accademico, cod_istituto, tipo_personale]
+    min_rows: 15000
+
+mart:
+  tables:
+    - name: "mart_afam_personale"
+      sql: "sql/mart.sql"
+  required_tables: ["mart_afam_personale"]
+  validate:
+    table_rules:
+      mart_afam_personale:
+        required_columns: [anno_accademico, tipo_personale, genere, totale]
+        primary_key: [anno_accademico, tipo_personale, genere]
+        not_null: [anno_accademico, tipo_personale, genere, totale]
+        min_rows: 20
+
+validation:
+  fail_on_error: true
