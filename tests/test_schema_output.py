@@ -67,6 +67,18 @@ MART_CONTRACTS = [
         "cod_istituto", "nome_istituto", "tipo_istituto", "area_istituto", "comune_sede",
         "cod_reg_istat", "regione", "cod_prov_istat", "provincia",
     ]),
+    ("mur_esoneri", "mart_esoneri_per_ateneo", [
+        "anno_accademico", "cod_ateneo", "nome_ateneo", "macro_area", "regione", "tipo_esonero", "totale",
+    ]),
+    ("mur_esoneri", "mart_esoneri_per_causa", [
+        "anno_accademico", "tipo_esonero", "descrizione_esonero", "totale",
+    ]),
+    ("mur_interventi", "mart_interventi_per_ateneo", [
+        "anno_accademico", "cod_ateneo", "nome_ateneo", "macro_area", "regione", "totale",
+    ]),
+    ("mur_interventi", "mart_interventi_per_tipo", [
+        "anno_accademico", "descrizione_intervento", "totale",
+    ]),
 ]
 
 

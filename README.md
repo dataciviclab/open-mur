@@ -10,7 +10,7 @@ open-mur raccoglie e rende pubblici i dati del sistema universitario italiano da
 
 | | |
 |---|---|
-| **Dataset** | 16 (9 principali + 3 support + 3 AFAM + 1 support AFAM) |
+| **Dataset** | 18 (9 principali + 3 support + 3 AFAM + 1 support AFAM + 2 diritto allo studio) |
 | **Periodo** | 1997 — 2025 (varia per dataset) |
 | **Atenei** | 112 in anagrafica · 92 con iscritti nel 2025 |
 | **Istituti AFAM** | 204 in anagrafica |
@@ -44,6 +44,15 @@ open-mur raccoglie e rende pubblici i dati del sistema universitario italiano da
 | `mur_afam_diplomati` | Diplomati per istituto, corso e genere | 2010–2025 |
 | `mur_afam_personale` | Personale docente e ATA per qualifica e genere | 2010–2025 |
 | `mur_afam_istituti` | Anagrafica istituti (support) | 2025 |
+
+## Diritto allo studio (lato MUR)
+
+| Dataset | Contenuto | Periodo |
+|---|---|---|
+| `mur_esoneri` | Studenti esonerati (totali e parziali) per ateneo e causa | a.a. 2015/16–2024/25 |
+| `mur_interventi` | Interventi in favore degli studenti (borse di studio, sostegni) | a.a. 2015/16–2024/25 |
+
+> Questi dataset leggono il **CSV diretto** (`prefer_datastore: false`): il DataStore MUR è incompleto su alcuni anni (es. interventi 2020: 1.250 righe nel DataStore vs 2.582 nel CSV) e su alcune risorse non è attivo.
 
 ## Esempi di domande
 
