@@ -25,7 +25,13 @@ run:
 		$(TOOLKIT) run --config "$$f" || exit 1; \
 	done
 
-run-all: seeds run
+# Un solo processo per tutti i dataset: evita ~33s di import per config in CI.
+run-all:
+	@mkdir -p .tmp
+	@find support -name dataset.yml | sort > .tmp/batch_all.txt
+	@find datasets -name dataset.yml | sort >> .tmp/batch_all.txt
+	@echo "📦 $$(wc -l < .tmp/batch_all.txt | tr -d ' ') config (support + datasets)"
+	$(TOOLKIT) run --batch .tmp/batch_all.txt
 
 # Batch selettivo post-merge: esegue solo i dataset toccati (batch.txt dal workflow).
 run-batch:

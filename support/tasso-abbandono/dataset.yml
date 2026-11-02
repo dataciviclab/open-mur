@@ -17,6 +17,9 @@ raw:
   sources:
     - name: "tasso_abbandono"
       type: "ckan"
+      client:
+        timeout: 15
+        retries: 1
       args:
         portal_url: "https://dati-ustat.mur.gov.it/api/3/action"
         resource_id: "770cff80-d35d-4476-b273-615666836a99"

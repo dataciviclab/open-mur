@@ -22,6 +22,9 @@ raw:
   sources:
     - name: "diplomati_afam_2010_2019"
       type: "ckan"
+      client:
+        timeout: 15
+        retries: 1
       args:
         portal_url: "https://dati-ustat.mur.gov.it/api/3/action"
         resource_id: "df8f3d8c-6562-4412-b1c7-5023f31999d8"
@@ -29,6 +32,9 @@ raw:
       primary: true
     - name: "diplomati_afam_2020_2025"
       type: "ckan"
+      client:
+        timeout: 15
+        retries: 1
       args:
         portal_url: "https://dati-ustat.mur.gov.it/api/3/action"
         resource_id: "9efc90fb-d5a1-4623-b857-10ef07d95583"

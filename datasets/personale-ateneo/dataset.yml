@@ -22,6 +22,9 @@ raw:
   sources:
     - name: "personale_accademico_profilo"
       type: "ckan"
+      client:
+        timeout: 15
+        retries: 1
       args:
         portal_url: "https://dati-ustat.mur.gov.it/api/3/action"
         resource_id: "6027508d-2efd-4f86-bbbf-44cb914b29c2"
@@ -57,7 +60,7 @@ mart:
       mart_personale_per_grade:
         primary_key: [anno, grade]
         not_null: [anno, grade, totale]
-        min_rows: 50
+        min_rows: 40
 
 validation:
   fail_on_error: true

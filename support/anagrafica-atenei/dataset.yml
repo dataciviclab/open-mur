@@ -13,6 +13,9 @@ raw:
   sources:
     - name: "atenei"
       type: "ckan"
+      client:
+        timeout: 15
+        retries: 1
       args:
         portal_url: "https://dati-ustat.mur.gov.it/api/3/action"
         resource_id: "820aefe6-0662-4656-84ec-d8859a2a3b7e"

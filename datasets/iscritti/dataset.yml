@@ -21,6 +21,9 @@ raw:
   sources:
     - name: "iscritti_ateneo"
       type: "ckan"
+      client:
+        timeout: 15
+        retries: 1
       args:
         portal_url: "https://dati-ustat.mur.gov.it/api/3/action"
         resource_id: "32d26e28-a0b5-45f3-9152-6072164f3e63"

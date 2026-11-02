@@ -22,6 +22,9 @@ raw:
   sources:
     - name: "iscritti_afam_2010_2014"
       type: "ckan"
+      client:
+        timeout: 15
+        retries: 1
       args:
         portal_url: "https://dati-ustat.mur.gov.it/api/3/action"
         resource_id: "65aae3a4-320f-463a-ba36-5e637edcf870"
@@ -29,12 +32,18 @@ raw:
       primary: true
     - name: "iscritti_afam_2015_2019"
       type: "ckan"
+      client:
+        timeout: 15
+        retries: 1
       args:
         portal_url: "https://dati-ustat.mur.gov.it/api/3/action"
         resource_id: "c5ee81f6-4115-4b08-97aa-2cbeed983f60"
         filename: "afam_iscritti_2015_2019.csv"
     - name: "iscritti_afam_2020_2025"
       type: "ckan"
+      client:
+        timeout: 15
+        retries: 1
       args:
         portal_url: "https://dati-ustat.mur.gov.it/api/3/action"
         resource_id: "72c39733-af10-4b7e-8d5c-878499fab765"

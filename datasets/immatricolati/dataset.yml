@@ -17,6 +17,9 @@ raw:
   sources:
     - name: "immatricolati_classe"
       type: "ckan"
+      client:
+        timeout: 15
+        retries: 1
       args:
         portal_url: "https://dati-ustat.mur.gov.it/api/3/action"
         resource_id: "9bb0cf6d-1d4e-47f3-8ae9-0c665617b158"
