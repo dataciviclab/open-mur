@@ -17,3 +17,6 @@ _local/
 
 # Temp
 .tmp/
+
+# Batch generato dal workflow
+batch.txt
