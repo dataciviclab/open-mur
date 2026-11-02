@@ -1,0 +1,51 @@
+root: "../../out"
+schema_version: 1
+
+dataset:
+  name: "finanziamento_universitario"
+  source_id: "dataciviclab_composite"
+  tags: [istruzione, universita, finanziamento, siope, bdap, compose]
+  category: istruzione
+  description: >
+    Vista aggregata del finanziamento del sistema universitario: entrate/uscite
+    SIOPE del comparto UNI (cassa) e spesa dello Stato per la missione 023
+    "Istruzione universitaria e formazione post-universitaria" (competenza).
+    Le due basi contabili sono distinte e non si sommano.
+  years: [2026]
+  time_coverage:
+    start_year: 2017
+    end_year: 2026
+
+# Mart-only compose: legge i clean pubblicati su GCS di altri repo.
+# SIOPE = cassa, BDAP = competenza → misure distinte, mai sommate.
+support:
+  - name: siope
+    type: external
+    bucket: clean
+    pattern: clean_parquet
+    slug: siope_bilancio_unificato
+    prefix: "siope/"
+    years: [2021, 2022, 2023, 2024, 2025, 2026]
+  - name: bdap
+    type: external
+    bucket: clean
+    pattern: clean_parquet
+    slug: bdap_lb_spese_missione
+    prefix: "bilancio-pubblico/"
+    years: [2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026]
+
+mart:
+  tables:
+    - name: "mart_finanziamento_universitario"
+      sql: "sql/mart_finanziamento_universitario.sql"
+  required_tables: ["mart_finanziamento_universitario"]
+  validate:
+    table_rules:
+      mart_finanziamento_universitario:
+        required_columns: [anno, siope_entrate_eur, siope_uscite_eur, siope_enti, bdap_spese_eur, nota_base]
+        primary_key: [anno]
+        not_null: [anno]
+        min_rows: 10
+
+validation:
+  fail_on_error: true

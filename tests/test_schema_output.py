@@ -67,6 +67,9 @@ MART_CONTRACTS = [
         "cod_istituto", "nome_istituto", "tipo_istituto", "area_istituto", "comune_sede",
         "cod_reg_istat", "regione", "cod_prov_istat", "provincia",
     ]),
+    ("finanziamento_universitario", "mart_finanziamento_universitario", [
+        "anno", "siope_entrate_eur", "siope_uscite_eur", "siope_enti", "bdap_spese_eur", "nota_base",
+    ]),
 ]
 
 
