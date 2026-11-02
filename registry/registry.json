@@ -5,6 +5,535 @@
   "updated_at": "2026-11-02",
   "datasets": [
     {
+      "slug": "mur_afam_diplomati",
+      "name": "Mur Afam Diplomati",
+      "description": "",
+      "source": "",
+      "source_id": "mur_ustat",
+      "period": {
+        "start": 2010,
+        "end": 2025
+      },
+      "tags": [
+        "istruzione",
+        "afam",
+        "diplomati",
+        "accademie",
+        "conservatori"
+      ],
+      "category": "istruzione",
+      "columns": [
+        {
+          "name": "anno",
+          "type": "INTEGER",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "year"
+        },
+        {
+          "name": "cod_istituto",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "nome_istituto",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "tipo_istituto",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "area_istituto",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "comune_sede",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "regione",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "region_code"
+        },
+        {
+          "name": "cod_reg_istat",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "provincia",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "province_code"
+        },
+        {
+          "name": "area_corso",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "tipo_corso",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "scuola",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "classe",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "corso",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "genere",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "diplomati",
+          "type": "INTEGER",
+          "role": "metric",
+          "description": ""
+        }
+      ],
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-clean/open_mur/mur_afam_diplomati/2025/mur_afam_diplomati_2025_clean.parquet",
+        "multi_file": false
+      },
+      "stage": "incubating",
+      "mart_refs": [
+        "mur_afam_diplomati__mart_afam_diplomati_area"
+      ]
+    },
+    {
+      "slug": "mur_afam_iscritti",
+      "name": "Mur Afam Iscritti",
+      "description": "",
+      "source": "",
+      "source_id": "mur_ustat",
+      "period": {
+        "start": 2010,
+        "end": 2025
+      },
+      "tags": [
+        "istruzione",
+        "afam",
+        "iscritti",
+        "accademie",
+        "conservatori"
+      ],
+      "category": "istruzione",
+      "columns": [
+        {
+          "name": "anno_accademico",
+          "type": "INTEGER",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "cod_istituto",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "nome_istituto",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "tipo_istituto",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "area_istituto",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "comune_sede",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "regione",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "region_code"
+        },
+        {
+          "name": "cod_reg_istat",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "provincia",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "province_code"
+        },
+        {
+          "name": "area_corso",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "tipo_corso",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "scuola",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "classe",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "corso",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "genere",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "iscritti",
+          "type": "INTEGER",
+          "role": "metric",
+          "description": ""
+        }
+      ],
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-clean/open_mur/mur_afam_iscritti/2025/mur_afam_iscritti_2025_clean.parquet",
+        "multi_file": false
+      },
+      "stage": "incubating",
+      "mart_refs": [
+        "mur_afam_iscritti__mart_afam_iscritti_area"
+      ]
+    },
+    {
+      "slug": "mur_afam_istituti",
+      "name": "Mur Afam Istituti",
+      "description": "Anagrafica istituti AFAM: codice, tipo, area, sede, regione/provincia ISTAT.",
+      "source": "",
+      "source_id": "mur_ustat",
+      "period": {
+        "start": 2025,
+        "end": 2025
+      },
+      "tags": [
+        "istruzione",
+        "afam",
+        "anagrafica",
+        "istituti",
+        "accademie",
+        "conservatori",
+        "support"
+      ],
+      "category": "support",
+      "columns": [
+        {
+          "name": "cod_istituto",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "id_istituto",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "nome_istituto",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "tipo_istituto",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "tipo_sigla",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "cod_tipo_istituto",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "area_istituto",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "comune_sede",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "cap",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "indirizzo",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "cod_ripgeo",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "ripartizione",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "cod_reg_istat",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "regione",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "region_code"
+        },
+        {
+          "name": "cod_prov_istat",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "provincia",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "province_code"
+        },
+        {
+          "name": "web",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "stato_attivita",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "data_chiusura",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "annotazioni",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        }
+      ],
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-clean/open_mur/mur_afam_istituti/2025/mur_afam_istituti_2025_clean.parquet",
+        "multi_file": false
+      },
+      "stage": "incubating",
+      "mart_refs": [
+        "mur_afam_istituti__mart_afam_istituti"
+      ]
+    },
+    {
+      "slug": "mur_afam_personale",
+      "name": "Mur Afam Personale",
+      "description": "",
+      "source": "",
+      "source_id": "mur_ustat",
+      "period": {
+        "start": 2010,
+        "end": 2025
+      },
+      "tags": [
+        "istruzione",
+        "afam",
+        "personale",
+        "docenti",
+        "ata",
+        "accademie",
+        "conservatori"
+      ],
+      "category": "istruzione",
+      "columns": [
+        {
+          "name": "anno_accademico",
+          "type": "INTEGER",
+          "role": "metric",
+          "description": ""
+        },
+        {
+          "name": "cod_istituto",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "nome_istituto",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "tipo_istituto",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "area_istituto",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "comune_sede",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "regione",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "region_code"
+        },
+        {
+          "name": "cod_reg_istat",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "provincia",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": "",
+          "semantic_type": "province_code"
+        },
+        {
+          "name": "tipo_personale",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "qualifica",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "genere",
+          "type": "VARCHAR",
+          "role": "dimension",
+          "description": ""
+        },
+        {
+          "name": "numero",
+          "type": "INTEGER",
+          "role": "metric",
+          "description": ""
+        }
+      ],
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-clean/open_mur/mur_afam_personale/2025/mur_afam_personale_2025_clean.parquet",
+        "multi_file": false
+      },
+      "stage": "incubating",
+      "mart_refs": [
+        "mur_afam_personale__mart_afam_personale"
+      ]
+    },
+    {
       "slug": "mur_anagrafica_atenei",
       "name": "Mur Anagrafica Atenei",
       "description": "Anagrafica completa degli atenei italiani: codice, nome, tipo, città, provincia, regione, macro-area.",
@@ -973,6 +1502,46 @@
   ],
   "marts": [
     {
+      "slug": "mur_afam_diplomati__mart_afam_diplomati_area",
+      "dataset": "mur_afam_diplomati",
+      "table": "mart_afam_diplomati_area",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/open_mur/mur_afam_diplomati/2025/mart_afam_diplomati_area.parquet",
+        "multi_file": false
+      }
+    },
+    {
+      "slug": "mur_afam_iscritti__mart_afam_iscritti_area",
+      "dataset": "mur_afam_iscritti",
+      "table": "mart_afam_iscritti_area",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/open_mur/mur_afam_iscritti/2025/mart_afam_iscritti_area.parquet",
+        "multi_file": false
+      }
+    },
+    {
+      "slug": "mur_afam_istituti__mart_afam_istituti",
+      "dataset": "mur_afam_istituti",
+      "table": "mart_afam_istituti",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/open_mur/mur_afam_istituti/2025/mart_afam_istituti.parquet",
+        "multi_file": false
+      }
+    },
+    {
+      "slug": "mur_afam_personale__mart_afam_personale",
+      "dataset": "mur_afam_personale",
+      "table": "mart_afam_personale",
+      "location": {
+        "type": "gcs",
+        "path": "gs://dataciviclab-mart/open_mur/mur_afam_personale/2025/mart_afam_personale.parquet",
+        "multi_file": false
+      }
+    },
+    {
       "slug": "mur_anagrafica_atenei__mart_anagrafica_atenei",
       "dataset": "mur_anagrafica_atenei",
       "table": "mart_anagrafica_atenei",
@@ -1125,6 +1694,99 @@
   ],
   "signals": [
     {
+      "id": "mur_afam_diplomati",
+      "source_id": "mur_ustat",
+      "status": "ok",
+      "label": "mur_afam_diplomati",
+      "detail": "anno 2025 — mart: si",
+      "action": "",
+      "run": {
+        "run_id": "20261102T180332Z_cf6ea7d3",
+        "year": 2025,
+        "status": "SUCCESS",
+        "quality_score": {
+          "raw": 100,
+          "clean": 100,
+          "mart": 100
+        },
+        "output_rows": {
+          "raw": 36216,
+          "clean": 66166,
+          "mart": 284
+        },
+        "output_bytes": {
+          "raw": 13268574,
+          "clean": 305110,
+          "mart": 4964
+        },
+        "started_at": "2026-11-02T18:03:32.528669+00:00",
+        "finished_at": "2026-11-02T18:04:58.899114+00:00",
+        "duration_seconds": 86.37
+      }
+    },
+    {
+      "id": "mur_afam_iscritti",
+      "source_id": "mur_ustat",
+      "status": "ok",
+      "label": "mur_afam_iscritti",
+      "detail": "anno 2025 — mart: si",
+      "action": "",
+      "run": {
+        "run_id": "20261102T180531Z_939b0d72",
+        "year": 2025,
+        "status": "SUCCESS",
+        "quality_score": {
+          "raw": 100,
+          "clean": 100,
+          "mart": 100
+        },
+        "output_rows": {
+          "raw": 32440,
+          "clean": 122580,
+          "mart": 302
+        },
+        "output_bytes": {
+          "raw": 25444509,
+          "clean": 483697,
+          "mart": 5373
+        },
+        "started_at": "2026-11-02T18:05:31.139104+00:00",
+        "finished_at": "2026-11-02T18:08:04.380697+00:00",
+        "duration_seconds": 153.242
+      }
+    },
+    {
+      "id": "mur_afam_personale",
+      "source_id": "mur_ustat",
+      "status": "ok",
+      "label": "mur_afam_personale",
+      "detail": "anno 2025 — mart: si",
+      "action": "",
+      "run": {
+        "run_id": "20261102T180836Z_fe4ce3c4",
+        "year": 2025,
+        "status": "SUCCESS",
+        "quality_score": {
+          "raw": 100,
+          "clean": 100,
+          "mart": 100
+        },
+        "output_rows": {
+          "raw": 7816,
+          "clean": 18755,
+          "mart": 36
+        },
+        "output_bytes": {
+          "raw": 3133407,
+          "clean": 62416,
+          "mart": 933
+        },
+        "started_at": "2026-11-02T18:08:36.809696+00:00",
+        "finished_at": "2026-11-02T18:09:42.223661+00:00",
+        "duration_seconds": 65.414
+      }
+    },
+    {
       "id": "mur_contribuzione_universitaria",
       "source_id": "mur_ustat",
       "status": "ok",
@@ -1132,7 +1794,7 @@
       "detail": "anni 2017-2024 — mart: si",
       "action": "",
       "run": {
-        "run_id": "20260924T140008Z_23bcd122",
+        "run_id": "20261102T181405Z_c42d1896",
         "year": 2024,
         "status": "SUCCESS",
         "quality_score": {
@@ -1149,9 +1811,9 @@
           "clean": 9501,
           "mart": 1422
         },
-        "started_at": "2026-09-24T14:00:08.753130+00:00",
-        "finished_at": "2026-09-24T14:04:15.286785+00:00",
-        "duration_seconds": 246.534
+        "started_at": "2026-11-02T18:14:05.694420+00:00",
+        "finished_at": "2026-11-02T18:14:38.443062+00:00",
+        "duration_seconds": 32.749
       }
     },
     {
@@ -1162,7 +1824,7 @@
       "detail": "anno 2025 — mart: si",
       "action": "",
       "run": {
-        "run_id": "20260924T141500Z_79d22505",
+        "run_id": "20261102T181510Z_ccd98a68",
         "year": 2025,
         "status": "SUCCESS",
         "quality_score": {
@@ -1180,9 +1842,9 @@
           "clean": 10161,
           "mart": 10644
         },
-        "started_at": "2026-09-24T14:15:00.295872+00:00",
-        "finished_at": "2026-09-24T14:19:06.762406+00:00",
-        "duration_seconds": 246.467
+        "started_at": "2026-11-02T18:15:10.740378+00:00",
+        "finished_at": "2026-11-02T18:15:43.559337+00:00",
+        "duration_seconds": 32.819
       }
     },
     {
@@ -1193,7 +1855,7 @@
       "detail": "anno 2025 — mart: si",
       "action": "",
       "run": {
-        "run_id": "20260924T151256Z_9a4e46f8",
+        "run_id": "20261102T181648Z_139252e3",
         "year": 2025,
         "status": "SUCCESS",
         "quality_score": {
@@ -1211,9 +1873,9 @@
           "clean": 14596,
           "mart": 3276
         },
-        "started_at": "2026-09-24T15:12:56.211945+00:00",
-        "finished_at": "2026-09-24T15:21:08.326951+00:00",
-        "duration_seconds": 492.115
+        "started_at": "2026-11-02T18:16:48.060328+00:00",
+        "finished_at": "2026-11-02T18:17:52.444966+00:00",
+        "duration_seconds": 64.385
       }
     },
     {
@@ -1224,7 +1886,7 @@
       "detail": "anno 2025 — mart: si",
       "action": "",
       "run": {
-        "run_id": "20260924T123958Z_9eebc9f9",
+        "run_id": "20261102T181825Z_22ac6aba",
         "year": 2025,
         "status": "SUCCESS",
         "quality_score": {
@@ -1240,11 +1902,11 @@
         "output_bytes": {
           "raw": 198129,
           "clean": 13355,
-          "mart": 23531
+          "mart": 23543
         },
-        "started_at": "2026-09-24T12:39:58.103173+00:00",
-        "finished_at": "2026-09-24T12:44:04.359905+00:00",
-        "duration_seconds": 246.257
+        "started_at": "2026-11-02T18:18:25.037700+00:00",
+        "finished_at": "2026-11-02T18:18:57.369824+00:00",
+        "duration_seconds": 32.332
       }
     },
     {
@@ -1255,7 +1917,7 @@
       "detail": "anno 2025 — mart: si",
       "action": "",
       "run": {
-        "run_id": "20260924T123128Z_11274164",
+        "run_id": "20261102T181929Z_91d4802c",
         "year": 2025,
         "status": "SUCCESS",
         "quality_score": {
@@ -1273,9 +1935,9 @@
           "clean": 19775,
           "mart": 33282
         },
-        "started_at": "2026-09-24T12:31:28.923697+00:00",
-        "finished_at": "2026-09-24T12:35:34.008174+00:00",
-        "duration_seconds": 245.084
+        "started_at": "2026-11-02T18:19:29.675973+00:00",
+        "finished_at": "2026-11-02T18:20:02.161879+00:00",
+        "duration_seconds": 32.486
       }
     },
     {
@@ -1286,7 +1948,7 @@
       "detail": "anno 2025 — mart: si",
       "action": "",
       "run": {
-        "run_id": "20260924T154602Z_36b864ec",
+        "run_id": "20261102T182034Z_50230be9",
         "year": 2025,
         "status": "SUCCESS",
         "quality_score": {
@@ -1302,11 +1964,11 @@
         "output_bytes": {
           "raw": 153887,
           "clean": 18199,
-          "mart": 30942
+          "mart": 30951
         },
-        "started_at": "2026-09-24T15:46:02.577922+00:00",
-        "finished_at": "2026-09-24T15:50:07.783743+00:00",
-        "duration_seconds": 245.206
+        "started_at": "2026-11-02T18:20:34.253294+00:00",
+        "finished_at": "2026-11-02T18:21:06.844632+00:00",
+        "duration_seconds": 32.591
       }
     },
     {
@@ -1317,7 +1979,7 @@
       "detail": "anno 2025 — mart: si",
       "action": "",
       "run": {
-        "run_id": "20260924T153109Z_110bd8f9",
+        "run_id": "20261102T182138Z_5f39155d",
         "year": 2025,
         "status": "SUCCESS",
         "quality_score": {
@@ -1335,9 +1997,9 @@
           "clean": 13947,
           "mart": 22778
         },
-        "started_at": "2026-09-24T15:31:09.556033+00:00",
-        "finished_at": "2026-09-24T15:35:16.000283+00:00",
-        "duration_seconds": 246.444
+        "started_at": "2026-11-02T18:21:38.832206+00:00",
+        "finished_at": "2026-11-02T18:22:10.931535+00:00",
+        "duration_seconds": 32.099
       }
     },
     {
@@ -1348,7 +2010,7 @@
       "detail": "anno 2025 — mart: si",
       "action": "",
       "run": {
-        "run_id": "20260924T130655Z_a335f32a",
+        "run_id": "20261102T182243Z_09e0bbf3",
         "year": 2025,
         "status": "SUCCESS",
         "quality_score": {
@@ -1366,9 +2028,9 @@
           "clean": 2489,
           "mart": 2570
         },
-        "started_at": "2026-09-24T13:06:55.165147+00:00",
-        "finished_at": "2026-09-24T13:11:00.196900+00:00",
-        "duration_seconds": 245.032
+        "started_at": "2026-11-02T18:22:43.035209+00:00",
+        "finished_at": "2026-11-02T18:23:14.853534+00:00",
+        "duration_seconds": 31.818
       }
     },
     {
@@ -1379,7 +2041,7 @@
       "detail": "anno 2025 — mart: si",
       "action": "",
       "run": {
-        "run_id": "20260924T131904Z_78d2e207",
+        "run_id": "20261102T182347Z_5d2a41e8",
         "year": 2025,
         "status": "SUCCESS",
         "quality_score": {
@@ -1388,18 +2050,49 @@
           "mart": 100
         },
         "output_rows": {
-          "raw": 29116,
-          "clean": 28719,
-          "mart": 9542
+          "raw": 27399,
+          "clean": 27030,
+          "mart": 8933
         },
         "output_bytes": {
-          "raw": 2614875,
-          "clean": 61323,
-          "mart": 37976
+          "raw": 2463217,
+          "clean": 59074,
+          "mart": 35255
         },
-        "started_at": "2026-09-24T13:19:04.390304+00:00",
-        "finished_at": "2026-09-24T13:23:11.190705+00:00",
-        "duration_seconds": 246.8
+        "started_at": "2026-11-02T18:23:47.208155+00:00",
+        "finished_at": "2026-11-02T18:24:21.008758+00:00",
+        "duration_seconds": 33.801
+      }
+    },
+    {
+      "id": "mur_afam_istituti",
+      "source_id": "mur_ustat",
+      "status": "ok",
+      "label": "mur_afam_istituti",
+      "detail": "anno 2025 — mart: si",
+      "action": "",
+      "run": {
+        "run_id": "20261102T182453Z_ac3ce71b",
+        "year": 2025,
+        "status": "SUCCESS",
+        "quality_score": {
+          "raw": 100,
+          "clean": 95,
+          "mart": 100
+        },
+        "output_rows": {
+          "raw": 204,
+          "clean": 204,
+          "mart": 204
+        },
+        "output_bytes": {
+          "raw": 49317,
+          "clean": 16504,
+          "mart": 16893
+        },
+        "started_at": "2026-11-02T18:24:53.313992+00:00",
+        "finished_at": "2026-11-02T18:25:26.197931+00:00",
+        "duration_seconds": 32.884
       }
     },
     {
@@ -1410,7 +2103,7 @@
       "detail": "anno 2025 — mart: si",
       "action": "",
       "run": {
-        "run_id": "20261102T170612Z_b169de02",
+        "run_id": "20261102T182558Z_4eb81647",
         "year": 2025,
         "status": "SUCCESS",
         "quality_score": {
@@ -1428,9 +2121,9 @@
           "clean": 7137,
           "mart": 6924
         },
-        "started_at": "2026-11-02T17:06:12.533386+00:00",
-        "finished_at": "2026-11-02T17:10:18.743342+00:00",
-        "duration_seconds": 246.21
+        "started_at": "2026-11-02T18:25:58.462732+00:00",
+        "finished_at": "2026-11-02T18:26:30.216520+00:00",
+        "duration_seconds": 31.754
       }
     },
     {
@@ -1441,7 +2134,7 @@
       "detail": "anno 2025 — mart: si",
       "action": "",
       "run": {
-        "run_id": "20260924T155944Z_6090246e",
+        "run_id": "20261102T182702Z_4feaaed1",
         "year": 2025,
         "status": "SUCCESS",
         "quality_score": {
@@ -1457,11 +2150,11 @@
         "output_bytes": {
           "raw": 665729,
           "clean": 59773,
-          "mart": 17844
+          "mart": 18090
         },
-        "started_at": "2026-09-24T15:59:44.478893+00:00",
-        "finished_at": "2026-09-24T16:03:51.829720+00:00",
-        "duration_seconds": 247.351
+        "started_at": "2026-11-02T18:27:02.101338+00:00",
+        "finished_at": "2026-11-02T18:27:34.686588+00:00",
+        "duration_seconds": 32.585
       }
     },
     {
@@ -1472,7 +2165,7 @@
       "detail": "anno 2025 — mart: si",
       "action": "",
       "run": {
-        "run_id": "20260924T160759Z_459e013f",
+        "run_id": "20261102T182806Z_047480ca",
         "year": 2025,
         "status": "SUCCESS",
         "quality_score": {
@@ -1490,9 +2183,9 @@
           "clean": 1359,
           "mart": 1533
         },
-        "started_at": "2026-09-24T16:07:59.748185+00:00",
-        "finished_at": "2026-09-24T16:12:05.561926+00:00",
-        "duration_seconds": 245.814
+        "started_at": "2026-11-02T18:28:06.994516+00:00",
+        "finished_at": "2026-11-02T18:28:39.000543+00:00",
+        "duration_seconds": 32.006
       }
     }
   ],
@@ -1503,6 +2196,30 @@
         "entity": "Provincia",
         "label": "Provincia",
         "datasets": [
+          {
+            "slug": "mur_afam_diplomati",
+            "name": "Mur Afam Diplomati",
+            "column": "provincia",
+            "semantic_type": "province_code"
+          },
+          {
+            "slug": "mur_afam_iscritti",
+            "name": "Mur Afam Iscritti",
+            "column": "provincia",
+            "semantic_type": "province_code"
+          },
+          {
+            "slug": "mur_afam_istituti",
+            "name": "Mur Afam Istituti",
+            "column": "provincia",
+            "semantic_type": "province_code"
+          },
+          {
+            "slug": "mur_afam_personale",
+            "name": "Mur Afam Personale",
+            "column": "provincia",
+            "semantic_type": "province_code"
+          },
           {
             "slug": "mur_anagrafica_atenei",
             "name": "Mur Anagrafica Atenei",
@@ -1529,13 +2246,37 @@
           }
         ],
         "types": {
-          "province_code": 4
+          "province_code": 8
         }
       },
       "Regione": {
         "entity": "Regione",
         "label": "Regione",
         "datasets": [
+          {
+            "slug": "mur_afam_diplomati",
+            "name": "Mur Afam Diplomati",
+            "column": "regione",
+            "semantic_type": "region_code"
+          },
+          {
+            "slug": "mur_afam_iscritti",
+            "name": "Mur Afam Iscritti",
+            "column": "regione",
+            "semantic_type": "region_code"
+          },
+          {
+            "slug": "mur_afam_istituti",
+            "name": "Mur Afam Istituti",
+            "column": "regione",
+            "semantic_type": "region_code"
+          },
+          {
+            "slug": "mur_afam_personale",
+            "name": "Mur Afam Personale",
+            "column": "regione",
+            "semantic_type": "region_code"
+          },
           {
             "slug": "mur_anagrafica_atenei",
             "name": "Mur Anagrafica Atenei",
@@ -1574,13 +2315,19 @@
           }
         ],
         "types": {
-          "region_code": 6
+          "region_code": 10
         }
       },
       "Tempo": {
         "entity": "Tempo",
         "label": "Tempo / data",
         "datasets": [
+          {
+            "slug": "mur_afam_diplomati",
+            "name": "Mur Afam Diplomati",
+            "column": "anno",
+            "semantic_type": "year"
+          },
           {
             "slug": "mur_contribuzione_universitaria",
             "name": "Mur Contribuzione Universitaria",
@@ -1631,7 +2378,7 @@
           }
         ],
         "types": {
-          "year": 8
+          "year": 9
         }
       }
     },
