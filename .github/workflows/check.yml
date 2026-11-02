@@ -23,7 +23,7 @@ jobs:
       - uses: dataciviclab/.github/actions/detect-changed-datasets@main
         id: detect
         with:
-          paths: "datasets support"
+          paths: "datasets support compose"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

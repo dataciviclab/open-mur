@@ -45,6 +45,14 @@ open-mur raccoglie e rende pubblici i dati del sistema universitario italiano da
 | `mur_afam_personale` | Personale docente e ATA per qualifica e genere | 2010–2025 |
 | `mur_afam_istituti` | Anagrafica istituti (support) | 2025 |
 
+## Finanziamento del sistema universitario
+
+| Dataset | Contenuto | Periodo |
+|---|---|---|
+| `finanziamento_universitario` | Entrate/uscite SIOPE del comparto UNI (cassa) e spesa BDAP missione 023 (competenza) | 2017–2026 |
+
+> **Basi contabili distinte.** SIOPE è **cassa**, BDAP è **competenza**: le colonne restano separate e **non vanno sommate**. SIOPE copre 2021–2026 (il 2026 è parziale), BDAP 2017–2026.
+
 ## Esempi di domande
 
 - **Il sistema universitario italiano cresce o decresce?** (Trend iscritti 2000–2025)

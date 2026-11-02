@@ -298,3 +298,32 @@ def test_afam_copertura_nome():
     assert senza / totale <= 0.12, (
         f"copertura nome AFAM scesa: {senza}/{totale} righe senza nome"
     )
+
+
+@pytest.mark.contract
+def test_finanziamento_universitario_copertura():
+    """SIOPE copre 2021-2025; BDAP parte dal 2017 e non si somma a SIOPE."""
+    path = _latest_parquet(MART_BASE, "finanziamento_universitario", "*.parquet")
+    if path is None:
+        pytest.skip("mart finanziamento_universitario assente — esegui prima la compose")
+
+    con = duckdb.connect()
+    try:
+        rows = {
+            anno: (entrate, bdap)
+            for anno, entrate, bdap in con.execute(
+                "SELECT anno, siope_entrate_eur, bdap_spese_eur "
+                "FROM read_parquet(?) ORDER BY anno",
+                [str(path)],
+            ).fetchall()
+        }
+    finally:
+        con.close()
+
+    for anno in range(2017, 2021):
+        assert rows[anno][0] is None, f"{anno}: SIOPE non deve esistere prima del 2021"
+        assert rows[anno][1] is not None, f"{anno}: BDAP atteso non nullo"
+
+    for anno in range(2021, 2026):
+        assert rows[anno][0] is not None, f"{anno}: SIOPE atteso non nullo"
+        assert rows[anno][1] is not None, f"{anno}: BDAP atteso non nullo"
