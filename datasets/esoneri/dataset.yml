@@ -6,6 +6,8 @@ dataset:
   source_id: "mur_ustat"
   tags: [istruzione, mur, esoneri, diritto-allo-studio, contribuzione, universita]
   category: istruzione
+  # Partizione = anno finale dell'a.a. (es. 2025 → a.a. 2024/25);
+  # time_coverage = anni di inizio a.a. (2015-2024).
   years: [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025]
   time_coverage:
     mode: full_series

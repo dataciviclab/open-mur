@@ -302,7 +302,7 @@ def test_afam_copertura_nome():
 
 @pytest.mark.policy
 def test_interventi_2020_non_troncato():
-    """Il 2020 è il caso in cui il DataStore MUR restituiva 1250 righe su 2582.
+    """Il 2020 è il caso in cui il DataStore MUR restituiva 1250 righe su 2530.
 
     Se `prefer_datastore: false` viene rimosso, il clean torna incompleto e
     questo test deve fallire.

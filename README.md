@@ -52,7 +52,7 @@ open-mur raccoglie e rende pubblici i dati del sistema universitario italiano da
 | `mur_esoneri` | Studenti esonerati (totali e parziali) per ateneo e causa | a.a. 2015/16–2024/25 |
 | `mur_interventi` | Interventi in favore degli studenti (borse di studio, sostegni) | a.a. 2015/16–2024/25 |
 
-> Questi dataset leggono il **CSV diretto** (`prefer_datastore: false`): il DataStore MUR è incompleto su alcuni anni (es. interventi 2020: 1.250 righe nel DataStore vs 2.582 nel CSV) e su alcune risorse non è attivo.
+> Questi dataset leggono il **CSV diretto** (`prefer_datastore: false`): il DataStore MUR è incompleto su alcuni anni (es. interventi 2020: 1.250 righe nel DataStore vs 2.530 nel CSV) e su alcune risorse non è attivo.
 
 ## Esempi di domande
 
