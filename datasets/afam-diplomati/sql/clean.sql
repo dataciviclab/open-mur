@@ -5,25 +5,25 @@
 
 WITH diplomati_raw AS (
     SELECT
-        CAST("ANNO_SOLARE" AS INTEGER) AS anno,
-        CAST("COD_ISTITUTO" AS VARCHAR) AS cod_istituto,
-        CAST("NOME_ISTITUTO" AS VARCHAR) AS nome_istituto,
-        CAST("TIPO_ISTITUTO" AS VARCHAR) AS tipo_istituto,
-        CAST("Area_Istituto" AS VARCHAR) AS area_istituto,
-        CAST("COMUNE_SEDE" AS VARCHAR) AS comune_sede,
-        CAST("REGIONE_ISTITUTO" AS VARCHAR) AS regione,
-        CAST("AREA_CORSO" AS VARCHAR) AS area_corso,
-        CAST("TIPO_CORSO" AS VARCHAR) AS tipo_corso,
+        cast_int(r."ANNO_SOLARE") AS anno,
+        normalize_string(r."COD_ISTITUTO") AS cod_istituto,
+        normalize_string(r."NOME_ISTITUTO") AS nome_istituto,
+        normalize_string(r."TIPO_ISTITUTO") AS tipo_istituto,
+        normalize_string(r."Area_Istituto") AS area_istituto,
+        normalize_string(r."COMUNE_SEDE") AS comune_sede,
+        normalize_string(r."REGIONE_ISTITUTO") AS regione,
+        normalize_string(r."AREA_CORSO") AS area_corso,
+        normalize_string(r."TIPO_CORSO") AS tipo_corso,
         COALESCE(
-            NULLIF(TRIM(CAST("SCUOLA" AS VARCHAR)), ''),
-            CAST("SCUOLA_AGGREGAZIONE" AS VARCHAR)
+            normalize_string(r."SCUOLA"),
+            normalize_string(r."SCUOLA_AGGREGAZIONE")
         ) AS scuola,
-        CAST("CLASSE" AS VARCHAR) AS classe,
-        CAST("CORSO" AS VARCHAR) AS corso,
-        CAST("GENERE" AS VARCHAR) AS genere,
-        TRY_CAST("DIPLOMATI" AS INTEGER) AS diplomati
-    FROM raw_input
-    WHERE TRY_CAST("DIPLOMATI" AS INTEGER) IS NOT NULL
+        normalize_string(r."CLASSE") AS classe,
+        normalize_string(r."CORSO") AS corso,
+        normalize_string(r."GENERE") AS genere,
+        cast_int(r."DIPLOMATI") AS diplomati
+    FROM raw_input r
+    WHERE cast_int(r."DIPLOMATI") IS NOT NULL
 ),
 -- cod_istituto non è univoco nella fonte (6 codici con più sedi): una riga per
 -- codice evita il fan-out nel join. La provincia scelta è la min alfabetica,

@@ -33,6 +33,8 @@ open-mur raccoglie e rende pubblici i dati del sistema universitario italiano da
 > **Nota serie iscritti.** La serie 2000–2025 non contiene il 2009: è un gap anagrafico della fonte MUR, non un errore di pipeline. Non va interpolato.
 >
 > **Nota AFAM.** `cod_istituto` non è univoco nell'anagrafica (6 codici hanno più sedi): il join nei dataset usa una riga per codice per evitare fan-out. `anno_accademico` è l'anno di inizio (es. 2025 = a.a. 2025/26); i diplomati usano invece l'anno solare.
+>
+> **Copertura AFAM.** Il nome istituto arriva dalla fonte, non dal join: **~89,5%** delle righe iscritti ha un nome (il 10,5% è vuoto nella fonte). **4 codici** iscritti non sono nell'anagrafica 2025 — `59050`, `59070` (sedi decentrate), `59090` (nuovo codice post-statizzazione del Politecnico di Bergamo), `72391` (sezione storica) — per **164 righe, ~1,2% degli iscritti**. Il mart aggrega per area e non ne risente; per un'analisi per istituto va considerata la copertura.
 
 ## AFAM in breve
 

@@ -243,3 +243,58 @@ def test_afam_anagrafica_nomi_completi():
         con.close()
 
     assert vuoti == 0, f"{vuoti} istituti AFAM senza nome"
+
+
+# Codici presenti negli iscritti ma assenti dall'anagrafica 2025 (noti e stabili):
+# 59050/59070 sedi decentrate, 59090 nuovo codice post-statizzazione,
+# 72391 sezione storica. Se il set cambia, va rivalutata la copertura.
+AFAM_CODICI_SENZA_ANAGRAFICA = {"59050", "59070", "59090", "72391"}
+
+
+@pytest.mark.policy
+def test_afam_codici_senza_anagrafica_noti():
+    """I codici iscritti assenti dall'anagrafica sono un set noto."""
+    iscritti = _latest_parquet(CLEAN_BASE, "mur_afam_iscritti", "*_clean.parquet")
+    anagrafica = _latest_parquet(MART_BASE, "mur_afam_istituti", "*.parquet")
+    if iscritti is None or anagrafica is None:
+        pytest.skip("clean iscritti o mart anagrafica AFAM assenti")
+
+    con = duckdb.connect()
+    try:
+        mancanti = {
+            r[0]
+            for r in con.execute(
+                "SELECT DISTINCT cod_istituto FROM read_parquet(?) "
+                "EXCEPT SELECT cod_istituto FROM read_parquet(?)",
+                [str(iscritti), str(anagrafica)],
+            ).fetchall()
+        }
+    finally:
+        con.close()
+
+    assert mancanti == AFAM_CODICI_SENZA_ANAGRAFICA, (
+        f"codici senza anagrafica cambiati: {sorted(mancanti)}"
+    )
+
+
+@pytest.mark.policy
+def test_afam_copertura_nome():
+    """Il nome istituto è un buco della fonte: copertura >= 88% delle righe."""
+    path = _latest_parquet(CLEAN_BASE, "mur_afam_iscritti", "*_clean.parquet")
+    if path is None:
+        pytest.skip("clean mur_afam_iscritti assente — esegui prima la pipeline")
+
+    con = duckdb.connect()
+    try:
+        senza, totale = con.execute(
+            "SELECT count(*) FILTER (WHERE nome_istituto IS NULL), count(*) "
+            "FROM read_parquet(?)",
+            [str(path)],
+        ).fetchone()
+    finally:
+        con.close()
+
+    assert totale > 0
+    assert senza / totale <= 0.12, (
+        f"copertura nome AFAM scesa: {senza}/{totale} righe senza nome"
+    )

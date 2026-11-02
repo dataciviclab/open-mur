@@ -7,27 +7,27 @@
 
 WITH personale_raw AS (
     SELECT
-        CAST(SPLIT_PART("ANNO_ACCADEMICO", '-', 1) AS INTEGER) AS anno_accademico,
-        CAST("COD_ISTITUTO" AS VARCHAR) AS cod_istituto,
-        CAST("NOME_ISTITUTO" AS VARCHAR) AS nome_istituto,
-        CAST("TIPO_ISTITUTO" AS VARCHAR) AS tipo_istituto,
-        CAST("AREA_ISTITUTO" AS VARCHAR) AS area_istituto,
-        CAST("COMUNE_SEDE" AS VARCHAR) AS comune_sede,
-        CAST("REGIONE_ISTITUTO" AS VARCHAR) AS regione,
-        CAST(tipo_personale AS VARCHAR) AS tipo_personale,
+        cast_int(SPLIT_PART(r."ANNO_ACCADEMICO", '-', 1)) AS anno_accademico,
+        normalize_string(r."COD_ISTITUTO") AS cod_istituto,
+        normalize_string(r."NOME_ISTITUTO") AS nome_istituto,
+        normalize_string(r."TIPO_ISTITUTO") AS tipo_istituto,
+        normalize_string(r."AREA_ISTITUTO") AS area_istituto,
+        normalize_string(r."COMUNE_SEDE") AS comune_sede,
+        normalize_string(r."REGIONE_ISTITUTO") AS regione,
+        normalize_string(tipo_personale) AS tipo_personale,
         COALESCE(
-            NULLIF(TRIM(CAST("TIPOLOGIA_CONTRATTUALE" AS VARCHAR)), ''),
-            CAST("QUALIFICA" AS VARCHAR)
+            normalize_string(r."TIPOLOGIA_CONTRATTUALE"),
+            normalize_string(r."QUALIFICA")
         ) AS qualifica,
-        CAST("GENERE" AS VARCHAR) AS genere,
+        normalize_string(r."GENERE") AS genere,
         COALESCE(
-            TRY_CAST("PERS_DOCENTE" AS INTEGER),
-            TRY_CAST("PERSONALE_TA" AS INTEGER)
+            cast_int(r."PERS_DOCENTE"),
+            cast_int(r."PERSONALE_TA")
         ) AS numero
-    FROM raw_input
+    FROM raw_input r
     WHERE COALESCE(
-        TRY_CAST("PERS_DOCENTE" AS INTEGER),
-        TRY_CAST("PERSONALE_TA" AS INTEGER)
+        cast_int(r."PERS_DOCENTE"),
+        cast_int(r."PERSONALE_TA")
     ) IS NOT NULL
 ),
 -- cod_istituto non è univoco nella fonte (6 codici con più sedi): una riga per

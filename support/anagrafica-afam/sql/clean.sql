@@ -4,28 +4,28 @@
 -- è a 2 cifre (es. "72" per Bari), non va troncato/interpretato come intero.
 
 SELECT
-    CAST(r."COD_ISTITUTO" AS VARCHAR) AS cod_istituto,
-    CAST(r."ID_ISTITUTO" AS VARCHAR) AS id_istituto,
+    normalize_string(r."COD_ISTITUTO") AS cod_istituto,
+    normalize_string(r."ID_ISTITUTO") AS id_istituto,
     COALESCE(
-        NULLIF(TRIM(CAST(r."NOME_ISTITUTO" AS VARCHAR)), ''),
-        CAST(r."TIPO_ISTITUTO" AS VARCHAR)
+        normalize_string(r."NOME_ISTITUTO"),
+        normalize_string(r."TIPO_ISTITUTO")
     ) AS nome_istituto,
-    CAST(r."TIPO_ISTITUTO" AS VARCHAR) AS tipo_istituto,
-    CAST(r."TIPO_ISTITUTO_SIGLA" AS VARCHAR) AS tipo_sigla,
-    CAST(r."COD_TIPO_ISTITUTO" AS VARCHAR) AS cod_tipo_istituto,
-    CAST(r."Area_Istituto" AS VARCHAR) AS area_istituto,
-    CAST(r."STATUS" AS VARCHAR) AS status,
-    CAST(r."COMUNE_SEDE" AS VARCHAR) AS comune_sede,
-    CAST(r."CAP" AS VARCHAR) AS cap,
-    CAST(r."Indirizzo" AS VARCHAR) AS indirizzo,
-    CAST(r."COD_RIPGEO" AS VARCHAR) AS cod_ripgeo,
-    CAST(r."RIPGEO" AS VARCHAR) AS ripartizione,
-    CAST(r."COD_REG_ISTAT" AS VARCHAR) AS cod_reg_istat,
-    CAST(r."REGIONE_ISTITUTO" AS VARCHAR) AS regione,
-    CAST(r."COD_PROV_ISTAT" AS VARCHAR) AS cod_prov_istat,
-    CAST(r."PROVINCIA_ISTITUTO" AS VARCHAR) AS provincia,
-    CAST(r."web" AS VARCHAR) AS web,
-    CAST(r."Stato attività" AS VARCHAR) AS stato_attivita,
-    CAST(r."Data_Chiusura" AS VARCHAR) AS data_chiusura,
-    CAST(r."Annotazioni" AS VARCHAR) AS annotazioni
+    normalize_string(r."TIPO_ISTITUTO") AS tipo_istituto,
+    normalize_string(r."TIPO_ISTITUTO_SIGLA") AS tipo_sigla,
+    normalize_string(r."COD_TIPO_ISTITUTO") AS cod_tipo_istituto,
+    normalize_string(r."Area_Istituto") AS area_istituto,
+    normalize_string(r."STATUS") AS status,
+    normalize_string(r."COMUNE_SEDE") AS comune_sede,
+    normalize_string(r."CAP") AS cap,
+    normalize_string(r."Indirizzo") AS indirizzo,
+    normalize_string(r."COD_RIPGEO") AS cod_ripgeo,
+    normalize_string(r."RIPGEO") AS ripartizione,
+    normalize_string(r."COD_REG_ISTAT") AS cod_reg_istat,
+    normalize_string(r."REGIONE_ISTITUTO") AS regione,
+    normalize_string(r."COD_PROV_ISTAT") AS cod_prov_istat,
+    normalize_string(r."PROVINCIA_ISTITUTO") AS provincia,
+    normalize_string(r."web") AS web,
+    normalize_string(r."Stato attività") AS stato_attivita,
+    normalize_string(r."Data_Chiusura") AS data_chiusura,
+    normalize_string(r."Annotazioni") AS annotazioni
 FROM raw_input r
