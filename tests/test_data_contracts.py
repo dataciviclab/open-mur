@@ -11,6 +11,7 @@ Skip-based: girano solo se i parquet locali esistono (dopo `make run`).
 
 from __future__ import annotations
 
+import re
 from pathlib import Path
 
 import duckdb
@@ -110,3 +111,68 @@ def test_provincia_e_sede_non_residenza():
         assert variabili == 0, f"{variabili} atenei con più di una provincia"
     finally:
         con.close()
+
+
+# --- Validazione del lookup scritto in clean.sql -------------------------------
+# Il lookup è statico e scritto a mano: questi test controllano la SORGENTE, non
+# solo l'output (che copre solo le ~53 province usate dagli atenei).
+# Le coppie golden sono verificate su BDAP Anagrafe Enti / ISTAT.
+
+CLEAN_SQL = ROOT / "support" / "anagrafica-atenei" / "sql" / "clean.sql"
+_TUPLA_RE = re.compile(r"\('((?:[^']|'')*)',\s*'([A-Z]{2})',\s*'(\d{3})'\)")
+
+
+def _lookup_pairs() -> list[tuple[str, str, str]]:
+    """Estrae (provincia, sigla, codice) dal blocco VALUES di clean.sql."""
+    testo = CLEAN_SQL.read_text(encoding="utf-8")
+    return [
+        (provincia.replace("''", "'"), sigla, codice)
+        for provincia, sigla, codice in _TUPLA_RE.findall(testo)
+    ]
+
+
+@pytest.mark.contract
+def test_lookup_province_struttura():
+    """112 righe (110 province + 2 alias), chiavi univoche e coerenti."""
+    pairs = _lookup_pairs()
+    assert len(pairs) == 112, f"attese 112 righe, trovate {len(pairs)}"
+
+    province = [p for p, _, _ in pairs]
+    assert len(province) == len(set(province)), "province duplicate nel lookup"
+
+    per_sigla: dict[str, str] = {}
+    per_codice: dict[str, str] = {}
+    for _, sigla, codice in pairs:
+        assert per_sigla.setdefault(sigla, codice) == codice, (
+            f"sigla {sigla} mappata a più codici"
+        )
+        assert per_codice.setdefault(codice, sigla) == sigla, (
+            f"codice {codice} mappato a più sigle"
+        )
+
+
+@pytest.mark.contract
+def test_lookup_province_golden():
+    """Coppie note: bloccano un errore di una cifra sul lookup a mano."""
+    pairs = {provincia: (sigla, codice) for provincia, sigla, codice in _lookup_pairs()}
+    golden = {
+        "ROMA": ("RM", "058"),
+        "MILANO": ("MI", "015"),
+        "TORINO": ("TO", "001"),
+        "NAPOLI": ("NA", "063"),
+        "MACERATA": ("MC", "043"),
+        "ASCOLI PICENO": ("AP", "044"),
+        "PESARO E URBINO": ("PU", "041"),
+        "L'AQUILA": ("AQ", "066"),
+        "BOLZANO": ("BZ", "021"),
+        "AOSTA": ("AO", "007"),
+        "CAGLIARI": ("CA", "118"),
+        "GALLURA NORD-EST SARDEGNA": ("OT", "113"),
+        "OGLIASTRA": ("OG", "116"),
+        "MEDIO CAMPIDANO": ("VS", "117"),
+        "SULCIS IGLESIENTE": ("CI", "119"),
+    }
+    for provincia, atteso in golden.items():
+        assert pairs.get(provincia) == atteso, (
+            f"{provincia}: atteso {atteso}, trovato {pairs.get(provincia)}"
+        )

@@ -114,13 +114,13 @@ WITH province_istat(provincia, sigla_provincia, cod_provincia_istat) AS (
         ('FERMO', 'FM', '109'),
         ('BARLETTA-ANDRIA-TRANI', 'BT', '110'),
         ('SASSARI', 'SS', '112'),
-        ('GALLURA NORD-EST SARDEGNA', 'OT', '113'),
+        ('GALLURA NORD-EST SARDEGNA', 'OT', '113'),   -- storica (riforma sarda 2016)
         ('NUORO', 'NU', '114'),
         ('ORISTANO', 'OR', '115'),
-        ('OGLIASTRA', 'OG', '116'),
-        ('MEDIO CAMPIDANO', 'VS', '117'),
+        ('OGLIASTRA', 'OG', '116'),                   -- storica (riforma sarda 2016)
+        ('MEDIO CAMPIDANO', 'VS', '117'),             -- storica (riforma sarda 2016)
         ('CAGLIARI', 'CA', '118'),
-        ('SULCIS IGLESIENTE', 'CI', '119'),
+        ('SULCIS IGLESIENTE', 'CI', '119'),           -- storica (riforma sarda 2016)
         ('AOSTA', 'AO', '007'),
         ('BOLZANO', 'BZ', '021')
 )
