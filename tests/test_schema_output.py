@@ -51,6 +51,9 @@ MART_CONTRACTS = [
     ("mur_offerta_formativa", "mart_offerta_per_ateneo", [
         "anno", "ateneo_cod", "classe", "lingua",
     ]),
+    ("mur_anagrafica_atenei", "mart_anagrafica_atenei", [
+        "cod_ateneo", "nome_esteso", "provincia", "sigla_provincia", "cod_provincia_istat", "regione",
+    ]),
 ]
 
 
