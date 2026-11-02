@@ -22,6 +22,9 @@ raw:
   sources:
     - name: "personale_docente_afam"
       type: "ckan"
+      client:
+        timeout: 15
+        retries: 1
       args:
         portal_url: "https://dati-ustat.mur.gov.it/api/3/action"
         resource_id: "41bcdee1-fd51-4bc4-aca8-3a937b9db6da"
@@ -31,6 +34,9 @@ raw:
       primary: true
     - name: "personale_ata_afam"
       type: "ckan"
+      client:
+        timeout: 15
+        retries: 1
       args:
         portal_url: "https://dati-ustat.mur.gov.it/api/3/action"
         resource_id: "f973ec78-bc5f-4bbc-ae27-8b40f50a6c9d"

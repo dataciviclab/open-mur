@@ -17,6 +17,9 @@ raw:
   sources:
     - name: "personale_genere_qualifica"
       type: "ckan"
+      client:
+        timeout: 15
+        retries: 1
       args:
         portal_url: "https://dati-ustat.mur.gov.it/api/3/action"
         resource_id: "85c1ab95-c8db-484b-8898-56478c521721"

@@ -13,6 +13,9 @@ raw:
   sources:
     - name: "offerta_formativa"
       type: "ckan"
+      client:
+        timeout: 15
+        retries: 1
       args:
         portal_url: "https://dati-ustat.mur.gov.it/api/3/action"
         resource_id: "c0e63906-7190-4568-892b-0cf399f56071"

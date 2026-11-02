@@ -22,6 +22,9 @@ raw:
   sources:
     - name: "laureati_voto"
       type: "ckan"
+      client:
+        timeout: 15
+        retries: 1
       args:
         portal_url: "https://dati-ustat.mur.gov.it/api/3/action"
         resource_id: "e7046069-8cc9-444b-bbc8-4844dbedc835"

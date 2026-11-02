@@ -13,6 +13,9 @@ raw:
   sources:
     - name: "afam_istituti"
       type: "ckan"
+      client:
+        timeout: 15
+        retries: 1
       args:
         portal_url: "https://dati-ustat.mur.gov.it/api/3/action"
         resource_id: "f15d64cb-ad61-4503-a60c-f1486158893b"

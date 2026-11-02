@@ -22,6 +22,9 @@ raw:
   sources:
     - name: "laureati_ateneo"
       type: "ckan"
+      client:
+        timeout: 15
+        retries: 1
       args:
         portal_url: "https://dati-ustat.mur.gov.it/api/3/action"
         resource_id: "88acd482-9d75-44d1-ab16-aa04524f5d94"

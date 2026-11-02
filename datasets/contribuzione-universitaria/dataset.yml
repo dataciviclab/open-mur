@@ -12,6 +12,9 @@ raw:
   sources:
     - name: "mur_gettito_ckan"
       type: "ckan"
+      client:
+        timeout: 15
+        retries: 1
       args:
         portal_url: "https://dati-ustat.mur.gov.it/api/3/action"
         dataset_id: "{year}-contribuzione-e-interventi-atenei"
