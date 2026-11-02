@@ -7,6 +7,8 @@ SELECT
     tipo,
     citta,
     provincia,
+    sigla_provincia,
+    cod_provincia_istat,
     regione,
     macro_area
 FROM clean_input

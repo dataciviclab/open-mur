@@ -7,8 +7,8 @@ Stessa strategia di `mur_immatricolati`: `http_file` con URL CSV diretto invece 
 ## Risorsa scelta
 
 `Iscritti per ateneo` — la più semplice e stabile:
-- 25 anni accademici (2000/01 – 2024/25)
-- 4.356 righe
+- 25 anni accademici (2000–2025), con il **2009 assente** (gap anagrafico MUR)
+- 4.362 righe nell'ultimo snapshot clean
 - Colonne: AnnoA, AteneoNOME, AteneoCOD, SESSO, Isc
 
 ## Encoding

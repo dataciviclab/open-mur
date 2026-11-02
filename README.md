@@ -12,7 +12,7 @@ open-mur raccoglie e rende pubblici i dati del sistema universitario italiano da
 |---|---|
 | **Dataset** | 12 (9 principali + 3 support) |
 | **Periodo** | 1997 — 2025 (varia per dataset) |
-| **Atenei coperti** | 92 |
+| **Atenei** | 112 in anagrafica · 92 con iscritti nel 2025 |
 | **Formato** | Parquet su GCS |
 
 ### Per tema
@@ -25,6 +25,10 @@ open-mur raccoglie e rende pubblici i dati del sistema universitario italiano da
 | 👩‍🏫 Personale | Qualifiche, evoluzione storica, bilancio di genere |
 | 💰 Finanza | Gettito contribuzione studentesca per tipo |
 | 📉 Efficienza | Tasso di abbandono, concentrazione geografica |
+
+> **Nota geografica.** `provincia` è la provincia della **sede dell'ateneo** (costante per ateneo), non la residenza degli studenti. Non usarla come chiave di join su dati di studenti: per i join usare `cod_ateneo`, per la geografia `regione` o `macro_area`. L'anagrafica espone anche `sigla_provincia` e `cod_provincia_istat` per gli usi descrittivi.
+>
+> **Nota serie iscritti.** La serie 2000–2025 non contiene il 2009: è un gap anagrafico della fonte MUR, non un errore di pipeline. Non va interpolato.
 
 ## Esempi di domande
 
