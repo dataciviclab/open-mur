@@ -11,8 +11,8 @@ on:
     - cron: "0 6 1 * *"
   workflow_dispatch:
     inputs:
-      dataset:
-        description: "Path config (es. datasets/laureati/dataset.yml o support/anagrafica-atenei/dataset.yml)"
+      datasets:
+        description: "Uno o più slug separati da virgola (o path del dataset.yml). Vuoto = tutti. Vedi ADR-002."
         required: false
         default: ""
 
@@ -26,7 +26,8 @@ jobs:
     uses: dataciviclab/.github/.github/workflows/pipeline-reusable.yml@main
     with:
       repo-slug: "open_mur"
-      run-command: ${{ inputs.dataset == '' && 'make run-all' || format('toolkit run --config {0}', inputs.dataset) }}
+      run-command: >-
+        ${{ inputs.datasets == '' && 'make run-all' || format('for d in $(echo "{0}" | tr "," " "); do toolkit run --config "$d"; done', inputs.datasets) }}
       run-batch-command: "make run-batch"
       detect-paths: "datasets support"
       extra-env: "BLOCKED_SOURCE_PROXY=${{ vars.BLOCKED_SOURCE_PROXY }}"
