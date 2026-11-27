@@ -6,7 +6,12 @@
 WITH iscritti_raw AS (
     SELECT
         cast_int(SPLIT_PART(r."ANNO_ACCADEMICO", '-', 1)) AS anno_accademico,
-        normalize_string(r."COD_ISTITUTO") AS cod_istituto,
+        -- Le serie 2020-2025 usano ID_STRUTTURE (rinominata da MUR il 2026-11-19),
+        -- le precedenti COD_ISTITUTO.
+        COALESCE(
+            normalize_string(r."COD_ISTITUTO"),
+            normalize_string(r."ID_STRUTTURE")
+        ) AS cod_istituto,
         normalize_string(r."NOME_ISTITUTO") AS nome_istituto,
         normalize_string(r."TIPO_ISTITUTO") AS tipo_istituto,
         normalize_string(r."Area_Istituto") AS area_istituto,
