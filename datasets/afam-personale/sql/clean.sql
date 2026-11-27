@@ -8,8 +8,8 @@
 WITH personale_raw AS (
     SELECT
         cast_int(SPLIT_PART(r."ANNO_ACCADEMICO", '-', 1)) AS anno_accademico,
-        -- Le due fonti coprono l'intera serie 10/11-25/26 e dal 2026-11-19
-        -- usano ID_STRUTTURE (prima COD_ISTITUTO).
+        -- Le due fonti coprono 2017/18-2025/26 e dal 2026-11-19 usano
+        -- ID_STRUTTURE (prima COD_ISTITUTO).
         normalize_string(r."ID_STRUTTURE") AS cod_istituto,
         normalize_string(r."NOME_ISTITUTO") AS nome_istituto,
         normalize_string(r."TIPO_ISTITUTO") AS tipo_istituto,

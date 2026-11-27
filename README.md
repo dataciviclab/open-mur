@@ -26,7 +26,7 @@ open-mur raccoglie e rende pubblici i dati del sistema universitario italiano da
 | 👩‍🏫 Personale | Qualifiche, evoluzione storica, bilancio di genere |
 | 💰 Finanza | Gettito contribuzione studentesca per tipo |
 | 📉 Efficienza | Tasso di abbandono, concentrazione geografica |
-| 🎼 AFAM | Iscritti, diplomati e personale di accademie e conservatori (2010–2025) |
+| 🎼 AFAM | Iscritti, diplomati e personale di accademie e conservatori (2010–2025; personale dal 2017) |
 
 > **Nota geografica.** `provincia` è la provincia della **sede dell'ateneo** (costante per ateneo), non la residenza degli studenti. Non usarla come chiave di join su dati di studenti: per i join usare `cod_ateneo`, per la geografia `regione` o `macro_area`. L'anagrafica espone anche `sigla_provincia` e `cod_provincia_istat` per gli usi descrittivi.
 >
@@ -42,7 +42,7 @@ open-mur raccoglie e rende pubblici i dati del sistema universitario italiano da
 |---|---|---|
 | `mur_afam_iscritti` | Iscritti per istituto, corso e genere | 2010–2025 |
 | `mur_afam_diplomati` | Diplomati per istituto, corso e genere | 2010–2025 |
-| `mur_afam_personale` | Personale docente e ATA per qualifica e genere | 2010–2025 |
+| `mur_afam_personale` | Personale docente e ATA per qualifica e genere | 2017–2025 |
 | `mur_afam_istituti` | Anagrafica istituti (support) | 2025 |
 
 ## Diritto allo studio (lato MUR)
