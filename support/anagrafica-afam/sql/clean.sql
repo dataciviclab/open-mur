@@ -4,7 +4,8 @@
 -- è a 2 cifre (es. "72" per Bari), non va troncato/interpretato come intero.
 
 SELECT
-    normalize_string(r."COD_ISTITUTO") AS cod_istituto,
+    -- Dal 2026-11-19 la fonte usa ID_STRUTTURE (prima COD_ISTITUTO).
+    normalize_string(r."ID_STRUTTURE") AS cod_istituto,
     normalize_string(r."ID_ISTITUTO") AS id_istituto,
     COALESCE(
         normalize_string(r."NOME_ISTITUTO"),
